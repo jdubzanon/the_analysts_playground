@@ -24,7 +24,7 @@ django-redis==5.4.0  # https://github.com/jazzband/django-redis
 numpy==1.26.4
 pandas==2.2.2
 requests==2.31.0
-yfinance==0.2.38
+yfinance==0.2.43
 plotly==5.22.0
 humanize==4.10.0
 pytz==2024.1
