@@ -1,0 +1,83 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/indexSearch/indexSearch_style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/tableStyle/tableStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/indexsearch.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <form action=""
+        hx-post="{% url 'indexSearch:indexSearch_view' %}"
+        hx-target="#index-swap"
+        method="post"
+        hx-boost="true">
+    <div class="grid">
+      <div class="set-flex align-flex-center">
+        <label for="index-search-bar" class="index-search-label">Special Index Search</label>
+      </div>
+      <div class="set-flex align-flex-center search-bar-wrapper">
+        <input type="search"
+               name="indexSearch"
+               id="index-search-bar"
+               class="index-search-bar " />
+      </div>
+    </div>
+  </form>
+  <div id="error-div" class=" set-flex align-flex-center error-div"></div>
+  <div class="set-flex align-flex-center">
+    <div id="index-swap" class="swap-div bend-corners">
+      <div class="instructions-main-div">
+        <div class="set-flex align-flex-center">
+          <h4 class="instructions-heading">This is a special search for stock market indices.</h4>
+        </div>
+        <h5>What is a Market Index?</h5>
+        <p>
+          A market index is a hypothetical portfolio of investment
+          holdings that represents a segment of the financial market.
+        </p>
+        <h6>Example indices are</h6>
+        <ul>
+          <li>Dow Jones Industrial Average (Dow 30)</li>
+          <li>Standard and Poors 500 (S&P 500)</li>
+          <li>Nasdaq Compoiste (Nasdaq)</li>
+        </ul>
+        <h5>You can search indices in 3 ways, a ticker, a name, or an industry</h5>
+        <h6>Example searches would be:</h6>
+        <ul>
+          <li>COMP (ticker for Nasdaq Composite)</li>
+          <li>Dow Jones (name that will return multiple Dow Jones indices)</li>
+          <li>Standard and Poors 500 (exact name search for an index)</li>
+          <li>Real Estate (industry search; will return indices covering the Real Estate industry)</li>
+        </ul>
+        <h5>There are over 11000 indexes so a more targeted search is recommended</h5>
+        <h6>Example targeted searches</h6>
+        <ul>
+          <li>Dow Jones Real Estate instead of just Real Estate</li>
+          <li>Nasdaq China instead of China</li>
+          <li>Nasdaq Small Cap instead of Small Cap</li>
+        </ul>
+        {% if request.user.is_authenticated %}
+          <p>
+            If you would like to see all of the indices available <a href="{% url 'indexSearch:user_viewAllIndices' user_id=request.user.uuid %}">Click
+          Here</a>
+        </p>
+      {% else %}
+        <p>
+          If you would like to see all of the indices available <a href="{% url 'indexSearch:viewAllIndices' %}">Click
+        Here</a>
+      </p>
+    {% endif %}
+  </div>
+</div>
+</div>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/indexSearch.js' %}"></script>
+{% endblock extra_jsfiles %}

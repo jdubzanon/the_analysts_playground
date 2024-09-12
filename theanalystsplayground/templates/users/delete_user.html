@@ -1,0 +1,15 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/deleteUser/deleteUser_style.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <p class="delete-prompt">are you sure you want to delete your account?</p>
+  <form action="{% url 'users:delete_user_view' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="delete-btn">Delete Account</button>
+  </form>
+{% endblock content %}

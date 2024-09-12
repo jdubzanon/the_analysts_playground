@@ -1,0 +1,61 @@
+{% load custom_filters %}
+
+{% if error %}
+  <h3 class="bad-request-box">Sorry bad request, please refresh and try again</h3>
+{% else %}
+  <div class="competitor-section-box set-flex">
+    <div class="set-flex align-flex-spacebetween">
+      <h5>Related ETF's</h5>
+      <a href="#" class="related-indices-close-link" onclick="closeRelated()">close</a>
+    </div>
+    {% for key, value in dataMap.items %}
+      <div class="set-flex align-flex-spacebetween">
+        <div class="grid">
+          <a href="{% url 'search:htmxLinkDispatch' ticker_id=value.ticker mtype=value.market_type %}"
+             class="indices-links">{{ value.ticker }}</a>
+          <p class="indices-company-name">{{ value.indexName }}</p>
+        </div>
+        <div class="grid numeric-data">
+          <p>{{ value.data|get_asset_price|floatformat:2|default:"N.A." }}</p>
+          {% if value.data|get_asset_price_change|default:0 > 0 %}
+            <p class="price-up">{{ value.data|get_asset_price_change|floatformat:2|default:"N.A." }}</p>
+          {% else %}
+            <p class="price-down">{{ value.data|get_asset_price_change|floatformat:2|default:"N.A." }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+    {% if prevPage and not nextPage %}
+      <div>
+        <a href="#"
+           class="indices-pagination"
+           hx-post="{% url 'indexSearch:htmxRelatedEtf' company_name=company_name index_low=index_low index_high=index_high page_requested='prevPage' ticker_type=tickerType %}"
+           hx-swap="innerHTML"
+           hx-target="#index-swap"
+           hx-trigger="click">Previous</a>
+      </div>
+    {% endif %}
+    {% if nextPage %}
+      <div class="set-flex align-flex-spacebetween">
+        {% if prevPage %}
+          <div>
+            <a href="#"
+               class="indices-pagination"
+               hx-post="{% url 'indexSearch:htmxRelatedEtf' company_name=company_name index_low=index_low index_high=index_high page_requested='prevPage' ticker_type=tickerType %}"
+               hx-swap="innerHTML"
+               hx-target="#index-swap"
+               hx-trigger="click">Previous</a>
+          </div>
+        {% endif %}
+        <div>
+          <a href="#"
+             class="indices-pagination"
+             hx-post="{% url 'indexSearch:htmxRelatedEtf' company_name=company_name index_low=index_low index_high=index_high page_requested='nextPage' ticker_type=tickerType %}"
+             hx-swap="innerHTML"
+             hx-target="#index-swap"
+             hx-trigger="click">Next</a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

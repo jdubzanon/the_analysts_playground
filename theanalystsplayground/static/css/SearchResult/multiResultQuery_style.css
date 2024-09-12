@@ -1,0 +1,47 @@
+.multi-search-header {
+    justify-content: center;
+    margin-bottom: 6.4rem;
+}
+
+.multi-result-wrapper {
+    justify-content: center;
+    font-size: 1.4rem;
+
+}
+
+.multi-result-div {
+    gap: 1.2rem;
+}
+
+.search-result-link:link,
+.search-result-link:visited {
+    color: #4263eb;
+    font-weight: 500;
+    transition: all 0.1s;
+}
+
+.search-result-link:active,
+.search-result-link:hover {
+    color: #37b24d;
+}
+
+
+.search-result-companyName {
+    color: #444;
+    font-style: italic;
+
+}
+
+.security-type {
+    font-size: 1rem !important;
+    color: #d9480f;
+
+}
+
+.search-result-text {
+    line-height: 1.6rem;
+}
+
+.market-type-text {
+    font-size: 1rem !important;
+}

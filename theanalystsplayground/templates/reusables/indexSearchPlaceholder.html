@@ -1,0 +1,90 @@
+{% load custom_filters %}
+
+{% if error %}
+  <h3>Sorry bad request, please refresh and try again</h3>
+{% else %}
+  <table>
+    {% if totalMatches %}
+      <caption>
+        Matching {{ index_low }} to {{ index_high }} of {{ totalMatches }} for {{ search_string|title }}
+      </caption>
+    {% endif %}
+    <thead>
+      <th scope="col">Ticker</th>
+      <th scope="col">Name</th>
+      <th scope="col">Current Price</th>
+      <th scope="col">Price Change</th>
+      <th scope="col">Percent Change</th>
+    </thead>
+    <tbody>
+      {% for key, value in allData.items %}
+        <tr>
+          <th scope="row">
+            <a href="{% url 'search:htmxLinkDispatch' ticker_id=value.ticker mtype='indices' %}">{{ value.ticker }}</a>
+          </th>
+          <td>{{ value.company_name }}</td>
+          <td align="center">{{ value.data.value|floatformat:2|default:"N.A." }}</td>
+          {% if value.data|get_asset_price_change_special_case|default:0 >= 0 %}
+            <td align="center" class="price-up">
+              {{ value.data|get_asset_price_change_special_case|floatformat:2|default:"N.A." }}
+            </td>
+            <td align="center" class="price-up">
+              {{ value.data|get_asset_percent_change_special_case|floatformat:2|default:"N.A." }}%
+            </td>
+          {% else %}
+            <td align="center" class="price-down">
+              {{ value.data|get_asset_price_change_special_case|floatformat:2|default:"N.A." }}
+            </td>
+            <td align="center" class="price-down">
+              {{ value.data|get_asset_percent_change_special_case|floatformat:2|default:"N.A." }}%
+            </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if nextPage and firstFifty %}
+    <div>
+      <a href="#"
+         class="pagination-link-decoration"
+         hx-push-url="true"
+         hx-post="{% url 'indexSearch:indexSearch' page_requested='nextPage' index_low=index_low index_high=index_high search_string=search_string %}"
+         hx-target="#index-swap"
+         hx-swap="innerHTML">Next
+      50</a>
+    </div>
+  {% endif %}
+  {% if not firstFifty %}
+    {% if previousPage and not nextPage %}
+      <div>
+        <a href="#"
+           class="pagination-link-decoration"
+           hx-push-url="true"
+           hx-post="{% url 'indexSearch:indexSearch' page_requested='prevPage' index_low=index_low index_high=index_high search_string=search_string %}"
+           hx-target="#index-swap"
+           hx-swap="innerHTML">Previous
+        50</a>
+      </div>
+    {% endif %}
+    {% if nextPage %}
+      <div class="set-flex align-flex-spacebetween">
+        {% if previousPage %}
+          <a href="#"
+             class="pagination-link-decoration"
+             hx-push-url="true"
+             hx-post="{% url 'indexSearch:indexSearch' page_requested='prevPage' index_low=index_low index_high=index_high search_string=search_string %}"
+             hx-target="#index-swap"
+             hx-swap="innerHTML">Previous
+          50</a>
+        {% endif %}
+        <a href="#"
+           class="pagination-link-decoration"
+           hx-push-url="true"
+           hx-post="{% url 'indexSearch:indexSearch' page_requested='nextPage' index_low=index_low index_high=index_high search_string=search_string %}"
+           hx-target="#index-swap"
+           hx-swap="innerHTML">Next
+        50</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endif %}

@@ -1,0 +1,64 @@
+@media (max-width: 895px) {
+
+    .forex-media-q {
+        overflow-x: scroll;
+    }
+
+    .forex-more-items {
+        overflow-x: scroll;
+    }
+
+    .forex-table-media {
+        min-width: 650px;
+    }
+}
+
+@media (max-width: 865px) {
+
+    .forex-table-header {
+        padding-top: 0;
+        margin-bottom: 0;
+    }
+
+    .forex-table-header,
+    .forex-table-header h2 {
+        color: #333;
+        background-color: #fff;
+    }
+}
+
+
+
+
+@media (max-width: 700px) {
+    #included-result-main-div {
+        max-height: 100%;
+
+    }
+}
+
+@media (max-width: 660px) {
+    .flex-box-wrapper {
+        overflow-x: scroll;
+    }
+
+    .flex-box-div {
+        overflow-x: scroll;
+    }
+
+    .main-header-div,
+    .main-header-div h2 {
+        color: #333;
+        background-color: inherit;
+    }
+
+    table {
+        min-width: 660px;
+        border-spacing: 0;
+
+    }
+
+
+
+
+}

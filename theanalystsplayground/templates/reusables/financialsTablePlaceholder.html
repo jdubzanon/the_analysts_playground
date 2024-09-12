@@ -1,0 +1,53 @@
+{% load custom_filters %}
+
+<div>
+  <h2 class="set-flex align-flex-center">FINANCIALS SUMMARY</h2>
+  <div class="card add-margin">
+    <table>
+      <thead>
+        <th scope="col" class="table-text-mod table-id ">Balance Sheet Metrics</th>
+        {% for col in tableColumns %}<th scope="col" class="table-text-mod ">{{ col }}</th>{% endfor %}
+      </thead>
+      <tbody>
+        {% for key, values in bsMap.items %}
+          <tr>
+            <th scope="row" class="table-text-mod">{{ key }}</th>
+            {% for val in values %}<td class="table-text-mod">{{ val|add_commas|default:"N/A" }}</td>{% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="card add-margin">
+    <table>
+      <thead>
+        <th scope="col" class="table-text-mod table-id ">Income Statement Metrics</th>
+        {% for col in tableColumns %}<th scope="col" class="table-text-mod ">{{ col }}</th>{% endfor %}
+      </thead>
+      <tbody>
+        {% for key, values in incomeMap.items %}
+          <tr>
+            <th scope="row" class="table-text-mod">{{ key }}</th>
+            {% for val in values %}<td class="table-text-mod">{{ val|add_commas|default:"N/A" }}</td>{% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="card add-margin">
+    <table>
+      <thead>
+        <th scope="col" class="table-text-mod table-id ">Cashflow Metrics</th>
+        {% for col in tableColumns %}<th scope="col" class="table-text-mod ">{{ col }}</th>{% endfor %}
+      </thead>
+      <tbody>
+        {% for key, values in cashflowMap.items %}
+          <tr>
+            <th scope="row" class="table-text-mod">{{ key }}</th>
+            {% for val in values %}<td class="table-text-mod">{{ val|add_commas|default:"N/A" }}</td>{% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

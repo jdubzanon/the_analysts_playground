@@ -1,0 +1,57 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/FrontPage/FrontPage_style.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <section>
+    <div class="set-flex align-flex-center vertical-align-center front-div-main">
+      <div>
+        <img src="{% static 'images/FrontPage/analyst_sliding4.jpg' %}"
+             alt="Image of wall street analyst sliding down a slide in a playground"
+             class="frontPage-image bend-corners" />
+      </div>
+      <div>
+        <div class="space-modifier">
+          <p class="title-text-modifier-small anton-regular">The</p>
+        </div>
+        <div class="space-modifier">
+          <p class="title-text-modifier-large anton-regular">Analyst's</p>
+        </div>
+        <div class="space-modifier set-flex align-flex-end">
+          <p class="title-text-modifier-small anton-regular">Playground</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="site-intro-div">
+      <p class="site-intro-text">
+        Thank you for visiting my Stock Market website. I built this website as a proof of
+        concept and to learn how to
+        build a website;
+        I am a faily new developer. This website is fairly extensive and covers over 9000 individual companies and ETFs
+        and
+        any news reports associated
+        with these stocks and ETFs. Additionally the website covers a little over 200 crypto tickers along with any news
+        associated with those tickers.
+        The website also covers overs 11000 stock market indexes and over 1200 forex pairs. There is also a News Center
+        where you can look up
+        news from different sources and much more.
+        All Prices and data are current up to 15min. If you create an account the website offers a watchlist that will
+        track any stock you add to your watchlist. Additionally,
+        signing up for an account permits access to a portfolio tracker that tracks gains and losses
+        for any stocks in your portfolio.
+        You can navigate to the home page <a href="{% url 'HomePage:dispatcher-view' %}">here</a>, or you can use the menu
+        button on the top right of the screen. I hope you like the site, you can leave comments, constructive criticism
+        and any issues that occur with the
+        site in the <a href="{% url 'commentSection:commentsView' %}">Feedback section</a> of the site. I am open to any
+        suggestions
+        as I would like to be a better developer. Thanks
+      </p>
+    </div>
+  </section>
+{% endblock content %}

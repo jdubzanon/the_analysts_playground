@@ -1,0 +1,14 @@
+<form action="{% url 'search:dispatch' %}"
+      method="get"
+      class="search-form"
+      id="search-id"
+      hx-get="{% url 'search:_htmxGet' %}"
+      hx-target="#htmx-general"
+      hx-trigger="keyup">
+  <input name="q"
+         type="text"
+         class="bar-of-search"
+         id="bar-for-search"
+         placeholder="Search Ticker or Company Here (press enter to search)" />
+  <div id="htmx-general" class="htmx-general-class"></div>
+</form>

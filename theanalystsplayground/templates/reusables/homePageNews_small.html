@@ -1,0 +1,13 @@
+<div class="grid grid--3--columns news-div bend-corners {{ added_div }}">
+  <h4 class="news-small-heading">{{ news_type }} News</h4>
+  {% for news in data %}
+    <div class="news-article">
+      <a href="{{ news.news_url }}" target="_blank">
+        <img src="{{ news.image_url }}"
+             alt="stock photos"
+             class="news-image-small bend-corners" />
+      </a>
+      <a href="{{ news.news_url }}" class="news-title-small" target="_blank">{{ news.title }}</a>
+    </div>
+  {% endfor %}
+</div>

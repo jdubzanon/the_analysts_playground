@@ -1,0 +1,176 @@
+.news-section-div {
+    margin-bottom: 6.4rem;
+    position: relative;
+}
+
+
+
+.newsCenter-form-div {
+    padding: 3.6rem 0;
+    margin-top: 3.6rem;
+    margin-bottom: 3.6rem;
+
+}
+
+form {
+    border: 1px solid #777;
+    border-radius: 5px;
+    padding: 1.8rem 1.8rem;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(212, 120, 15, 0.5), 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.ticker-input-label {
+    font-size: 1.2rem;
+    margin-right: 1.2rem;
+}
+
+.market-sentiment-box {
+    gap: 4.8rem;
+}
+
+legend {
+    font-weight: 600;
+}
+
+
+
+
+.form-instructions {
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #37b24d;
+    font-size: 1.8rem;
+    font-weight: 500;
+    padding: 1.2rem 1.2rem;
+    border-radius: 5px;
+    margin-bottom: 2.4rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.5);
+
+
+}
+
+.submit-btn {
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #37b24d;
+    font-size: 2rem;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.5);
+
+
+}
+
+.submit-btn-div {
+    margin-top: 1rem;
+    margin-top: 2.4rem;
+
+
+}
+
+.ticker-input-box {
+    margin-bottom: 1rem;
+}
+
+
+.ticker-input-box::placeholder {
+    font-size: 1rem;
+    text-align: center;
+    color: #000;
+    font-style: italic;
+}
+
+.fontSizeIncrease {
+    font-size: 1.2rem;
+}
+
+
+
+/* ABSOLUTE POSITIONS QUICK DETAILS */
+.quick-details {
+    position: absolute;
+    top: 15%;
+    right: 15%;
+    padding: 1.6rem;
+    border-radius: 5px;
+    border: 2px solid #ff922b;
+    width: 30rem;
+    white-space: nowrap;
+    overflow: auto;
+    box-shadow: 0 8px 16px rgba(34, 139, 34, 0.4);
+}
+
+.information-text {
+    font-size: 1.2rem;
+}
+
+.quick-title h2,
+.quick-title p {
+    margin-bottom: 0;
+}
+
+
+
+.quick-title {
+    border-bottom: 1.5px solid #444;
+
+    gap: 1.2rem;
+    align-items: flex-end;
+
+}
+
+.ticker-detail {
+    color: #0b7285;
+}
+
+.quick-details-spacing {
+    justify-content: space-between;
+    width: 70%;
+}
+
+
+.news-stories-nav {
+    justify-content: space-between;
+    grid-column: 1 / -1;
+
+}
+
+
+.load-more-news-link:link,
+.load-more-news-link:visited {
+    font-size: 1.4rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #333;
+    color: #fff !important;
+    background-color: #4263eb;
+    border-radius: 6px;
+    margin-top: 1.2rem;
+    transition: all 0.3s;
+}
+
+.load-more-news-link:hover,
+.load-more-news-link:active {
+    background-color: #37b24d;
+
+}
+
+.no-filters-match-div {
+    font-size: 3.4rem;
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    color: #e5383b;
+}
+
+.special-case {
+    position: absolute;
+    bottom: -15%;
+}
+
+
+.news-badrequest {
+    font-size: 2.4rem;
+    color: #e5383b;
+}

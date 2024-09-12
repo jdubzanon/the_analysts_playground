@@ -1,0 +1,49 @@
+@media (max-width: 875px) {
+    .special-wrapper {
+        margin-bottom: 2.4rem;
+    }
+
+
+}
+
+@media (max-width: 745px) {
+    .info-text-div {
+        width: 30%;
+    }
+}
+
+/* @media (max-width:) */
+@media (max-width: 625px) {
+    .portfolio-bucket {
+        display: block;
+    }
+
+    .portfolio-container {
+        width: auto;
+    }
+
+    .watchlist-container {
+        width: 65%;
+    }
+}
+
+@media (max-width: 550px) {
+    .dashboard-child-div {
+        flex-direction: column;
+    }
+
+    .watchlist-container {
+        width: 100%;
+    }
+
+    .portfolio-container {
+        width: 100%;
+
+    }
+
+    .portfolio-bucket {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}

@@ -1,0 +1,78 @@
+.bend-corners {
+    border-radius: 5px;
+}
+
+
+.index-search-label {
+    font-size: 2.4rem;
+    font-weight: 500;
+}
+
+.search-bar-wrapper {
+    width: 100%;
+}
+
+.index-search-bar {
+    width: 80%;
+    font-size: 1.6rem;
+    border-radius: 50px;
+    border: 2px solid #c92a2a;
+    padding: 0.25rem;
+    font-weight: 500;
+    text-align: center;
+
+}
+
+input:focus {
+    outline: none;
+}
+
+.swap-div {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 6px 20px rgba(0, 0, 0, 0.4);
+    padding: 2rem;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* if no search matches  */
+#error-div {
+    min-height: 2.4rem;
+
+}
+
+.error-div {
+    font-size: 1.6rem;
+    color: #e03131;
+}
+
+
+/* instructions on page first display */
+.instructions-heading {
+    margin-bottom: 1rem;
+}
+
+h6 {
+    font-size: 1.2rem;
+}
+
+ul li {
+    font-size: 1.2rem;
+}
+
+.instructions-main-div p {
+    font-size: 1.2rem;
+}
+
+/* htmx table swap */
+
+
+
+.pagination-link-decoration {
+    color: #ce5959;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.pagination-link-decoration:hover {
+    color: #37b24d;
+}

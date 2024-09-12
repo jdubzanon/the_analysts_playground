@@ -1,0 +1,22 @@
+<div class="multiResponse-wrapper">
+  <p class="header-modifier">Multiple Matches, which one would you like to add to your watchlist?</p>
+  <a href="#"
+     class="ion-close"
+     hx-get="{% url 'dashboard_app:htmxReload' %}"
+     hx-target="#swappable-content"
+     hx-trigger="click"><ion-icon size="large" name="close-outline"></ion-icon></a>
+  <div class="multiResponse grid grid--2--columns ">
+    {% for item in q %}
+      <p>
+        <a href="#"
+           hx-get="{% url 'dashboard_app:multipe_watchlist_match' ticker_id=item.public_ticker mtype=item.market_type %}"
+           hx-trigger="click"
+           hx-target="#swappable-content">{{ item.public_ticker }}</a>
+        <br />
+        {{ item.company_name }}
+        <br />
+        <span class="orange-text">{{ item.market_type }}</span>
+      </p>
+    {% endfor %}
+  </div>
+</div>

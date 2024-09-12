@@ -1,0 +1,77 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/StockCenter/stockCenter_style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/viewAll/viewAll_style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/tableStyle/tableStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/stockcenter.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/table_style.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <div class="search-bar-div set-flex">{% include "Search/SearchBarTemplate.html" %}</div>
+  <div class="heading-div set-flex">
+    <div class="form-wrapper">
+      <form action="{% url 'stockCenter:stockCenter_view' %}" method="get">
+        <div>
+          <label for="industry-options" class="industry-options-lable">Choose an industry:</label>
+          <div>
+            <select name="industry-dropdown" id="industry-options" class="dropdown-class">
+              {% for industry in IndustryOptions %}<option value="{{ industry }}">{{ industry }}</option>{% endfor %}
+            </select>
+            <input type="submit" value="Submit" class="selection-btn" />
+          </div>
+          <div>
+            <p class="instructions">
+              You can choose and industry and well grab the data table for you with all
+              stocks in that industry
+            </p>
+          </div>
+        </div>
+      </form>
+      <div class="or-text-div">
+        <h2 class="or-text">OR</h2>
+      </div>
+      <form action="{% url 'stockCenter:stockCenter_view' %}" method="get">
+        <div>
+          <label for="sector-options" class="industry-options-lable">Choose an Sector:</label>
+          <div>
+            <select name="sector-dropdown" id="sector-options" class="dropdown-class">
+              {% for sector in SectorOptions %}<option value="{{ sector }}">{{ sector }}</option>{% endfor %}
+            </select>
+            <input type="submit" value="Submit" class="selection-btn" />
+          </div>
+        </div>
+        <div>
+          <p class="instructions">
+            Choose a sector and well pull all the data tables for each industry in that
+            sector, try it, it's
+            pretty
+            cool!
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="results-wrapper">
+    <div id="included-result-main-div" class="matching-div">
+      {% if data and not all_request_failed %}
+        <h2>Results for {{ search_parameters }}</h2>
+        {% include "viewAll/sectorTables.html" with data=data %}
+      {% elif data and all_request_failed %}
+        <h3>Bad Request, please refresh and try again</h3>
+      {% endif %}
+    </div>
+  </div>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/searchBarTemplate.js' %}"></script>
+  <script src="{% static 'js/stockCenter.js' %}"></script>
+  <script src="{% static 'js/scrollTop.js' %}"></script>
+{% endblock extra_jsfiles %}

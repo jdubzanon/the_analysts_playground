@@ -1,0 +1,38 @@
+/* SEARCHBAR CONTROL */
+
+@media (max-width: 500px) {
+    .search-bar-div form {
+        width: 90%;
+    }
+
+    input::placeholder {
+        color: black;
+    }
+
+    input[type="text"] {
+        font-size: 1rem;
+
+    }
+}
+
+@media (max-width: 385px) {
+    .search-bar-div form {
+        width: 100%;
+    }
+}
+
+/* REMAINING PAGE */
+
+@media (max-width: 1000px) {
+    .heading-div {
+        width: 85%;
+    }
+}
+
+
+@media (max-width: 800px) {
+    .heading-div {
+        width: 100%;
+    }
+
+}

@@ -1,0 +1,87 @@
+.feedback-text {
+    padding: 2.4rem;
+}
+
+.form-div {
+    padding: 2.4rem;
+    /* border: 1px solid #777; */
+    border-radius: 5px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.08);
+    background-color: #00b4d8;
+}
+
+h4 {
+    padding: 1.2rem 0;
+    color: #fff;
+}
+
+label {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+form input {
+    border-radius: 5px;
+    border: none;
+    padding: 0 1.2rem;
+
+}
+
+form textarea {
+    border-radius: 5px;
+    font-size: 1.4rem;
+    padding: 0.5rem 1rem;
+
+}
+
+button {
+    border: #fff;
+    color: #fff;
+    background-color: #fff;
+    padding: 0.75rem 1rem;
+    font-size: 1.2rem;
+    background-color: #000;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.comment-section-wrapper {
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #f77f00;
+    border-bottom: none;
+    border-radius: 5px;
+
+}
+
+.comments-title-div {
+    margin-top: 3.2rem;
+    margin-bottom: 3.2rem;
+}
+
+
+.comments-div {
+    padding: 2.4rem;
+    /* background-color: #00b4d8; */
+    border-bottom: 2px solid #999;
+    max-width: 50%;
+    min-width: 50%
+}
+
+.font-modifier {
+    font-size: 1.2rem;
+}
+
+.heavy-weight {
+    font-weight: 500;
+}
+
+.date {
+    color: #777;
+    font-style: italic;
+}

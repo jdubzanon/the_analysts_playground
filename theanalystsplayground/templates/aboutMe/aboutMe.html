@@ -1,0 +1,36 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/aboutMe/aboutMe_style.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <section class="section-margin">
+    <img src="{% static 'images/aboutMe/self.jpg' %}"
+         alt="self portrait of website creator"
+         class="self-image" />
+  </section>
+  <section class="section-margin">
+    <div>
+      <p class="text-modifier">
+        My name is Justin and for those of you from Rumble I go by the name of Siberian_Troll. First off i want to thank
+        you for visiting my website. I am an amateur developer who enjoys building things with Python. You could say it's
+        a hobby that
+        I take pretty seriously. I built this website using mainly Python, Python's Django Framework, JavaScript, HTMX,
+        and
+        other various Python libraries.
+        My actually occupation is a Truck Driver. I guess you could say when "they" said "Learn to Code", I said took on
+        that challenge and showed "them" we truck drivers can learn to code J/K. Other activities I enjoy is lifting
+        weights and,
+        when i have the time, I also enjoy video games. I also stream on rumble every once in a while <a href="https://rumble.com/c/c-6028646" target="_blank">here</a>.
+        Thats pretty much it about me, I'm not really that complicated. If you would like to contact me, why you would I
+        dont know, Im just trying to fill space at this point,
+        you can contact me <a href="mailto:thorntonbill343@gmail.com">here</a>. I do want to thank JCopacetic
+        for his help. He helped me thourghout this build when i was struggling to understand certain Django related
+        concepts.
+        JCopacetic is a professional web developer by trade. A few of JCopacetic's' websites are <a href="https://reely.io/" target="_blank">Reely.io</a> add <a href="https://khaoticdigital.com/" target="_blank">KhaoticDigital.com</a>.
+      </p>
+    </div>
+  </section>
+{% endblock content %}

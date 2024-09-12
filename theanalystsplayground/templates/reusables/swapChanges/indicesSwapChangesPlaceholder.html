@@ -1,0 +1,47 @@
+{% load custom_filters %}
+
+{% if defaultDisplay %}
+  {% if data|get_asset_percent_change_special_case|default:0 >= 0 %}
+    <a href="#"
+       hx-post="{% url 'HomePage:htmxSwapChanges' ticker=data.ticker mtype='indices' current_type=current_type %}"
+       class="percent-modifier price-up"
+       hx-swap="outerHTML"
+       onclick="return false;">({{ data|get_asset_percent_change_special_case|floatformat:2|default:"N.A." }})%</a>
+  {% else %}
+    <a href="#"
+       hx-post="{% url 'HomePage:htmxSwapChanges' ticker=data.ticker mtype='indices' current_type=current_type %}"
+       class="percent-modifier price-down"
+       hx-swap="outerHTML"
+       onclick="return false;">({{ data|get_asset_percent_change_special_case|floatformat:2|default:"N.A." }})%</a>
+  {% endif %}
+{% else %}
+  {% if current_type == "price" %}
+    {% if data|get_asset_price_change_special_case|default:0 >= 0 %}
+      <a href="#"
+         hx-post="{% url 'HomePage:htmxSwapChanges' ticker=value.api_call_symbol mtype='indices' current_type='price' %}"
+         class="percent-modifier price-up"
+         hx-swap="outerHTML"
+         onclick="return false;">{{ data|get_asset_price_change_special_case|floatformat:2|default:"N.A." }}</a>
+    {% else %}
+      <a href="#"
+         hx-post="{% url 'HomePage:htmxSwapChanges' ticker=value.api_call_symbol mtype='indices' current_type='price' %}"
+         class="percent-modifier price-down"
+         hx-swap="outerHTML"
+         onclick="return false;">{{ data|get_asset_price_change_special_case|floatformat:2|default:"N.A." }}</a>
+    {% endif %}
+  {% else %}
+    {% if data|get_asset_percent_change_special_case|default:0 >= 0 %}
+      <a href="#"
+         hx-post="{% url 'HomePage:htmxSwapChanges' ticker=value.api_call_symbol mtype='indices' current_type='percent' %}"
+         class="percent-modifier price-up"
+         hx-swap="outerHTML"
+         onclick="return false;">({{ data|get_asset_percent_change_special_case|floatformat:2|default:"N.A." }})%</a>
+    {% else %}
+      <a href="#"
+         hx-post="{% url 'HomePage:htmxSwapChanges' ticker=value.api_call_symbol mtype='indices' current_type='percent' %}"
+         class="percent-modifier price-down"
+         hx-swap="outerHTML"
+         onclick="return false;">({{ data|get_asset_percent_change_special_case|floatformat:2|default:"N.A." }})%</a>
+    {% endif %}
+  {% endif %}
+{% endif %}

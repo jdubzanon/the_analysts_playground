@@ -1,0 +1,101 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/dashboard/dashboard_style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/mediaQueries/dashboard.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <div class="dashboard-main-div">
+    <div class="dashboard-heading-div">
+      <h2 class="dashboard-heading">
+        Welcome <span class="username">{{ request.user.username }}</span> to your
+        dashboard
+      </h2>
+    </div>
+    <div class="dashboard-child-div set-flex">
+      <div class="watchlist-container">
+        <h2 class="watchlist-header block-headers set-flex">{{ request.user.username }}'s Watchlist !</h2>
+        <div class="stocks-bucket">
+          <div id="swappable-content">
+            <div class="multiWatchlistMatch" id="badResponse"></div>
+            {% include "reusables/watchlistPlaceholder.html" with allData=allData userWatchlist=userWatchlist watchlist_bad_request=watchlist_bad_request %}
+          </div>
+          <div id="responseTarget" class="htmxResponseTarget"></div>
+          <a href="#"
+             id="add-stock-link"
+             onclick="boxToggler()"
+             class="add-stocks-link-class">Add Stocks Here!</a>
+          <form id="add-stock-form"
+                hx-post="{% url 'dashboard_app:_htmxSwapfunction' %}"
+                hx-target="#swappable-content">
+            <div id="entry-form" class="entry-form-class">
+              <label for="add-stock-input-box" class="input-label">Enter Ticker Here</label>
+              <input name="stockBox" type="text" id="add-stock-input-box" />
+              <button type="submit" class="watchlist-submit-btn">ADD</button>
+            </div>
+          </form>
+          <a href="#"
+             id="done-link"
+             onclick="originalState()"
+             class="done-link-class">Done</a>
+        </div>
+      </div>
+      <div class="portfolio-container">
+        <h2 class="portfolio-header block-headers set-flex ">{{ request.user.username }}'s Portfolio Tracker</h2>
+        <div class="portfolio-main-div">
+          <div class="portfolio-bucket grid grid--2--columns" id="swap-this">
+            {% include "reusables/portfolioPlaceholder.html" with portfolio=Portfolio totalGainLoss=totalGainLoss %}
+          </div>
+          <form action=""
+                method="post"
+                class="portfolio-form"
+                id="portfolio-form-id"
+                hx-post="{% url 'dashboard_app:_htmxPortfolioSwap' %}"
+                hx-target="#swap-this">
+            {% csrf_token %}
+            <div class="form-div-class" id="form-div-id">
+              <div class="top-of-form set-flex">
+                <p class="form-prompt">Please fill out information</p>
+                <a href="#" onclick="formToggler('close')" class="close-link">close</a>
+              </div>
+              {{ form.as_p }}
+              <div class="portfolioResponseTarget" id="htmxPortfolioResponse"></div>
+              <button type="submit"
+                      id="form-submit-button-id"
+                      class="form-submit-button-class">submit</button>
+            </div>
+          </form>
+          <!-- EDIT FORM -->
+          <form action=""
+                method="post"
+                class="portfolio-edit-form"
+                id="edit-form-id"
+                hx-post="{% url 'dashboard_app:_htmxEditPortfolio' %}"
+                hx-target="#swap-this">
+            {% csrf_token %}
+            <div class=" form-div-class" id="form-div-id">
+              <div class="top-of-form set-flex">
+                <p class="form-prompt" id="id_formPrompt">EDIT FIELDS</p>
+                <a href="#" onclick="editFormToggler('close')" class="close-link">close</a>
+              </div>
+              {{ editForm.as_p }}
+              <div class="portfolioResponseTarget" id="javaScriptResponseTarget"></div>
+              <button type="submit"
+                      id="form-submit-button-id"
+                      class="form-submit-button-class"
+                      onclick="forValidation()">submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock extra_jsfiles %}

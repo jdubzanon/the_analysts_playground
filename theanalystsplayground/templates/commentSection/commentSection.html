@@ -1,0 +1,48 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/commentSection/commentSection_style.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <div class="form-div-wrapper">
+    <div>
+      <h3 class="set-flex align-flex-center feedback-text">GIVE YOUR FEEDBACK</h3>
+    </div>
+    <p id="submit-msg"></p>
+    <div class="form-div set-flex align-flex-center">
+      <form action="" method="post">
+        <h4>ADD COMMENT HERE</h4>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" id="comment-submit-btn">submit</button>
+      </form>
+    </div>
+  </div>
+  {% if noComments %}
+    <div class="comments-title-div set-flex align-flex-center">
+      <h2>Be the first to leave feedback</h2>
+    </div>
+  {% else %}
+    <div class="comments-title-div set-flex align-flex-center">
+      <h2>Recent Comments</h2>
+    </div>
+    <div class="comment-section-wrapper set-flex">
+      {% for comment in allComments %}
+        <div class="comments-div">
+          <p class="font-modifier heavy-weight">{{ comment.name }}</p>
+          <p class="font-modifier heavy-weight">{{ comment.title }}</p>
+          <p class="font-modifier">{{ comment.comments }}</p>
+          <p class="font-modifier date">POSTED: {{ comment.date }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/commentSection.js' %}"></script>
+{% endblock extra_jsfiles %}

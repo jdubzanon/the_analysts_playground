@@ -1,0 +1,23 @@
+{% if model_query %}
+  <div class="set-flex results-close-link-div">
+    <a href="#" class="close-link">CLOSE</a>
+  </div>
+  {% for data in model_query %}
+    <p class="search-ticker">
+      <a href="{% url 'search:htmxLinkDispatch' ticker_id=data.public_ticker mtype=data.market_type %}"
+         class="stockLink">{{ data.public_ticker }}</a>
+      <br />
+      <span class="search-comp-name">{{ data.company_name }}</span>
+      <br />
+      {% if data.market_type == "stocks" %}
+        <span class="stocks-color">Market: ({{ data.market_type }})</span>
+      {% elif data.market_type == "crypto" %}
+        <span class="crypto-color">Market: ({{ data.market_type }})</span>
+      {% elif data.market_type == "fx" %}
+        <span class="forex-color">Market: (forex)</span>
+      {% elif data.market_type == "indices" %}
+        <span class="indices-color">Market: ({{ data.market_type }})</span>
+      {% endif %}
+    </p>
+  {% endfor %}
+{% endif %}

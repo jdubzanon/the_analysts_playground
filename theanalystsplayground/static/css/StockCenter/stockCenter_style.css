@@ -1,0 +1,42 @@
+.heading-div {
+    margin-bottom: 4.8rem;
+    justify-content: center;
+    border: 1px solid #333;
+    width: 70%;
+    border-radius: 10px;
+    box-shadow: 5px 5px 3px rgba(251, 133, 0, 0.3),
+        5px 5px 3px rgba(0, 0, 0, 0.4);
+
+}
+
+.form-wrapper {
+    padding: 1.2rem;
+}
+
+
+.industry-options-lable {
+    font-size: 2.4rem;
+}
+
+.selection-btn {
+    margin-left: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0.25rem;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #000;
+}
+
+.dropdown-class {
+    width: 20rem;
+    font-size: 1.4rem;
+    padding: 0.25rem;
+
+
+}
+
+.instructions {
+    padding: .75rem 0;
+    font-size: 1.2rem;
+}

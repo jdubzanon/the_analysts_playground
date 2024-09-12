@@ -1,0 +1,37 @@
+from django.db import models
+
+class IndexSearchSpecial(models.Model):
+    publicTicker = models.CharField(default="", max_length=10)
+    companyName = models.CharField(default="", max_length=500)
+    marketType = models.CharField(default="", max_length=25)
+    apiCallSymbol = models.CharField(default="", max_length=25)
+
+    def __str__(self):
+        return self.publicTicker
+
+
+
+
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from myapp.models import IndexSearchSpecial
+
+def search_indexes(query):
+    search_vector = SearchVector('companyName')
+    search_query = SearchQuery(query)
+
+    results = IndexSearchSpecial.objects.annotate(
+        search=search_vector,
+        rank=SearchRank(search_vector, search_query)
+    ).filter(search=search_query).order_by('-rank')
+
+    return results
+
+
+# views.py or another appropriate place in your project
+from myapp.models import IndexSearchSpecial
+
+query = "Real Estate"
+results = search_indexes(query)
+
+for result in results:
+    print(result.companyName, result.rank)

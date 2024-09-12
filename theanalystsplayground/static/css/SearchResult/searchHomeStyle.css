@@ -1,0 +1,142 @@
+.page-div {
+    display: flex;
+    justify-content: center;
+}
+
+.page-div-with-error {
+    display: flex;
+    justify-content: center;
+}
+
+.form-div {
+    height: 40rem;
+    width: 80rem;
+    border: 3px solid #1c7ed6;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url(../../images/searchBar/searchResized.jpeg);
+    background-position: center;
+    background-size: cover;
+}
+
+.main-search-form {
+    padding: 2rem 0;
+    position: relative;
+}
+
+
+._form {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+
+
+}
+
+.error-div {
+    height: 2.6rem;
+    background-color: white;
+    border-radius: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-msg {
+    font-size: 2.4rem;
+    color: red;
+    font-style: italic;
+}
+
+.main-search-bar {
+    width: 50rem;
+    height: 3.6rem;
+    border-radius: 500px;
+    font-size: 1.4rem;
+    text-align: center;
+    font-weight: 500;
+    padding: 0rem 1.2rem;
+    border: 2px solid #1c7ed6;
+    position: relative;
+}
+
+.main-search-button {
+    padding: 0.25rem 1rem;
+}
+
+::placeholder {
+    text-align: center;
+    color: #333;
+}
+
+
+.htmx-result-class {
+    position: absolute;
+    top: 6rem;
+    right: 0;
+    transform: translateX(-20%);
+    min-width: 65%;
+    max-width: 65%;
+    max-height: 50rem;
+    overflow-y: scroll;
+    background-color: #fff;
+    padding: 1.6rem;
+    border: 1px solid #555;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+}
+
+@media (max-width: 670px) {
+    .error-msg {
+        font-size: 2rem;
+    }
+}
+
+
+@media (max-width: 550px) {
+    ._form {
+        width: 80%;
+    }
+
+    .htmx-result-class {
+        min-width: 100%;
+        max-width: 100%;
+        transform: translateX(0%);
+
+    }
+
+    form {
+        width: 100%;
+    }
+
+    .main-search-bar {
+        width: 100%;
+    }
+
+    .main-search-bar::placeholder {
+        font-size: 1rem;
+    }
+
+    .form-div {
+        width: 100%;
+        background-size: contain;
+        height: 20rem;
+    }
+
+    .page-div {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .error-div {
+        margin: auto;
+    }
+
+    .error-msg {
+        font-size: 1.4rem;
+    }
+}

@@ -1,0 +1,450 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/HomePage/homePage_style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/mediaQueries/homepage.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  {% if api_down %}
+    {% include "reusables/bad_request_template.html" %}
+  {% else %}
+    <section class="search-bar-section">
+      <div class="search-bar-div set-flex">{% include "Search/SearchBarTemplate.html" %}</div>
+    </section>
+    <section class="indices-section section-margin">
+      <div class="indices-main-div bend-corners set-flex ">
+        <div class="left-side-index-box set-flex  general-box">
+          <div class="box border-red bend-corners">
+            <div class="set-flex align-flex-center">
+              <h5>US Market Index</h5>
+            </div>
+            {% include 'reusables/homePageIndexPlaceholder.html' with indices=us_indices defaultDisplay=defaultDisplay current_type=current_type %}
+          </div>
+          <div class="box border-red bend-corners inner-box-adjustment">
+            <div class="set-flex align-flex-center ">
+              <h5>European Market Index</h5>
+            </div>
+            <div>
+              {% include 'reusables/homePageIndexPlaceholder.html' with indices=europe_indices defaultDisplay=defaultDisplay current_type=current_type %}
+            </div>
+          </div>
+        </div>
+        <div class="right-side-index-box set-flex general-box">
+          <div class="box border-red bend-corners">
+            <div class="set-flex align-flex-center">
+              <h5>Asia Index</h5>
+            </div>
+            <div>
+              {% include 'reusables/homePageIndexPlaceholder.html' with indices=asia_indices defaultDisplay=defaultDisplay current_type=current_type %}
+            </div>
+          </div>
+          <div class="box border-red bend-corners">
+            <div class="set-flex align-flex-center">
+              <h5>Titans Index</h5>
+            </div>
+            <div>
+              {% include 'reusables/homePageIndexPlaceholder.html' with indices=titan_indices defaultDisplay=defaultDisplay current_type=current_type %}
+            </div>
+            <div>
+              <a href="https://www.spglobal.com/spdji/en/index-family/equity/global-equity/dj-titans/#overview"
+                 target="_blank"
+                 class="see-more">What are Titans?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="currencies section-margin">
+      <div class="set-flex crypto-forex align-flex-spacearound vertical-align-center">
+        <div class="stock-information-div bend-corners border-blue special-case-box crypto-box">
+          <div class="set-flex align-flex-center">
+            <h5>CRYPTO !</h5>
+          </div>
+          {% for key , value in cryptoMap.items %}
+            <div class="set-flex information-div">
+              <div>
+                <a href="{% url 'search:htmxLinkDispatch' ticker_id=value.ticker mtype='crypto' %}"
+                   class="ticker-modifier">{{ value.ticker }}</a>
+                <p class="name-modifier">{{ value.obj.company_name }}</p>
+              </div>
+              <div class="grid grid-align-center">
+                {% if value.data|get_asset_price_change|default:0 >= 0 %}
+                  <p class="price-modifier price-up">{{ value.data|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                  {% include 'reusables/swapChanges/cryptoSwapChangesPlaceholder.html' with data=value.data current_type=current_type defaultDisplay=defaultDisplay Mtype="crypto" %}
+                {% else %}
+                  <p class="price-modifier price-down ">{{ value.data|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                  {% include 'reusables/swapChanges/cryptoSwapChangesPlaceholder.html' with data=value.data current_type=current_type defaultDisplay=defaultDisplay Mtype="crypto" %}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+          <div>
+            {% if request.user.is_authenticated %}
+              <a href="{% url 'currencies:user_moreCryptoCurrencies' letter='A' user_id=request.user.uuid %}"
+                 class="see-more">More Crypto</a>
+            {% else %}
+              <a href="{% url 'currencies:moreCryptoCurrencies' letter='A' %}"
+                 class="see-more">More Crypto</a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="currencies-header-div">
+          <h2 class="currency-title bend-corners ">CURRENCIES</h2>
+        </div>
+        <div class="stock-information-div bend-corners border-blue special-case-box forex-box">
+          <div class="set-flex align-flex-center">
+            <h5>Top Forex Currencies</h5>
+          </div>
+          {% for key , value in forexMap.items %}
+            <div class="set-flex information-div">
+              <div>
+                <a href="{% url 'search:htmxLinkDispatch' ticker_id=value.ticker mtype='fx' %}"
+                   class="ticker-modifier">{{ value.ticker }}</a>
+                <p class="name-modifier">{{ value.obj.company_name }}</p>
+              </div>
+              <div class="grid grid-align-center">
+                {% if any_of %}
+                  {% if value.data|forex_price_change_alternative|default:0 >= 0 %}
+                    <p class="price-modifier price-up">{{ value.data|forex_price_alternative|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/fxSwapChangesPlaceholder.html' with data=value.data current_type=current_type defaultDisplay=defaultDisplay Mtype="fx" any_of=any_of %}
+                  {% else %}
+                    <p class="price-modifier price-down ">{{ value.data|forex_price_alternative|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/fxSwapChangesPlaceholder.html' with data=value.data current_type=current_type defaultDisplay=defaultDisplay Mtype="fx" any_of=any_of %}
+                  {% endif %}
+                {% else %}
+                  {% if value.data|get_asset_percent_change|default:0 >= 0 %}
+                    <p class="price-modifier price-up">{{ value.data|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/fxSwapChangesPlaceholder.html' with data=value.data current_type=current_type defaultDisplay=defaultDisplay Mtype="fx" any_of=any_of %}
+                  {% else %}
+                    <p class="price-modifier price-down ">{{ value.data|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/fxSwapChangesPlaceholder.html' with data=value.data current_type=current_type defaultDisplay=defaultDisplay Mtype="fx" any_of=any_of %}
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+          <div>
+            {% if request.user.is_authenticated %}
+              <a href="{% url 'currencies:user_moreForexCurrencies' letter='A' user_id=request.user.uuid %}"
+                 class="see-more">More Forex</a>
+            {% else %}
+              <a href="{% url 'currencies:moreForexCurrencies' letter='A' %}"
+                 class="see-more">More Forex</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="recent-news-section section-margin">
+      {% include 'reusables/homePageNews_large.html' with recentNews=cryptoNews type="Crypto" %}
+    </section>
+    <section class="faang-section section-margin">
+      <div class="set-flex align-flex-center">
+        <h2>FAANG stocks</h2>
+      </div>
+      <div class="set-flex top-container left-to-right">
+        <div class="stock-information-div bend-corners stockbox-left">
+          {% for faang in faang_stocks %}
+            <div class="set-flex information-div">
+              <div>
+                <a href="{% url 'search:htmxLinkDispatch' ticker_id=faang.ticker mtype='stocks' %}"
+                   class="ticker-modifier">{{ faang.ticker }}</a>
+                <p class="name-modifier">{{ faang.name }}</p>
+              </div>
+              <div class="grid grid-align-center">
+                {% if faang|get_asset_price_change|default:0 >= 0 %}
+                  <p class="price-modifier price-up">{{ faang|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                  {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=faang current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                {% else %}
+                  <p class="price-modifier price-down ">{{ faang|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                  {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=faang current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        {% include 'reusables/homePageNews_small.html' with data=faangNews news_type="FAANG" %}
+      </div>
+    </section>
+    <section class="semiconductor-section section-margin">
+      <div class="set-flex align-flex-center">
+        <h2>Semiconductors</h2>
+      </div>
+      <div class="set-flex top-container left-to-right">
+        <div class="stock-information-div bend-corners stockbox-left">
+          {% for semi_conductor in semi_conductors %}
+            <div class="set-flex information-div">
+              <div>
+                <a href="{% url 'search:htmxLinkDispatch' ticker_id=semi_conductor.ticker mtype='stocks' %}"
+                   class="ticker-modifier">{{ semi_conductor.ticker }}</a>
+                <p class="name-modifier">{{ semi_conductor.name }}</p>
+              </div>
+              <div class="grid grid-align-center">
+                {% if semi_conductor|get_asset_price_change|default:0 >= 0 %}
+                  <p class="price-modifier price-up">{{ semi_conductor|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                  {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=semi_conductor current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                {% else %}
+                  <p class="price-modifier price-down ">{{ semi_conductor|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                  {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=semi_conductor current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+          <div>
+            <a href="{% url 'HomePage:viewAll-view' value='Semiconductor' %}"
+               class="see-more semi-conductors-link">See More Semi-Conductors</a>
+          </div>
+        </div>
+        {% include 'reusables/homePageNews_small.html' with data=semiNews news_type="Semi-Conductor" %}
+      </div>
+    </section>
+    <section class="recent-news-section section-margin">
+      {% include 'reusables/homePageNews_large.html' with recentNews=data_news type="Stock" %}
+    </section>
+    <section class="etf-index-section section-margin">
+      <div class="etf-price-boxes">
+        <div class="set-flex etf-indexs section-margin">
+          <div class="stock-information-div bend-corners border-blue">
+            <div class="set-flex align-flex-center">
+              <h5>US INDEX ETF's</h5>
+            </div>
+            {% for us_index in us_index_etf %}
+              <div class="set-flex information-div">
+                <div>
+                  <a href="{% url 'search:htmxLinkDispatch' ticker_id=us_index.ticker mtype='stocks' %}"
+                     class="ticker-modifier">{{ us_index.ticker }}</a>
+                  <p class="name-modifier">{{ us_index.name }}</p>
+                </div>
+                <div class="grid grid-align-center">
+                  {% if us_index|get_asset_price_change|default:0 >= 0 %}
+                    <p class="price-modifier price-up">{{ us_index|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=us_index current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                  {% else %}
+                    <p class="price-modifier price-down ">{{ us_index|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=us_index current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="stock-information-div bend-corners border-blue special-case-box">
+            <div class="set-flex align-flex-center">
+              <h5>WORLD INDEX ETF's</h5>
+            </div>
+            {% for worldIndex in global_index_etf %}
+              <div class="set-flex information-div">
+                <div>
+                  <a href="{% url 'search:htmxLinkDispatch' ticker_id=worldIndex.ticker mtype='stocks' %}"
+                     class="ticker-modifier">{{ worldIndex.ticker }}</a>
+                  <p class="name-modifier">{{ worldIndex.name }}</p>
+                </div>
+                <div class="grid grid-align-center">
+                  {% if worldIndex|get_asset_price_change|default:0 >= 0 %}
+                    <p class="price-modifier price-up">{{ worldIndex|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=worldIndex current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                  {% else %}
+                    <p class="price-modifier price-down">{{ worldIndex|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=worldIndex current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="stock-information-div bend-corners border-blue special-case-box">
+            <div class="set-flex align-flex-center">
+              <h5>COMMODITY ETF's</h5>
+            </div>
+            {% for commodityEtf in commodity_etfs %}
+              <div class="set-flex information-div">
+                <div>
+                  <a href="{% url 'search:htmxLinkDispatch' ticker_id=commodityEtf.ticker mtype='stocks' %}"
+                     class="ticker-modifier">{{ commodityEtf.ticker }}</a>
+                  <p class="name-modifier">{{ commodityEtf.name }}</p>
+                </div>
+                <div class="grid grid-align-center">
+                  {% if commodityEtf|get_asset_price_change|default:0 >= 0 %}
+                    <p class="price-modifier price-up">{{ commodityEtf|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=commodityEtf current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                  {% else %}
+                    <p class="price-modifier price-down">{{ commodityEtf|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=commodityEtf current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% include "reusables/homePageNews_large.html" with recentNews=mixedEtfNews type="ETF & Commidity" %}
+    </section>
+    <section class="software section section-margin">
+      <div class="set-flex align-flex-center">
+        <h2>Softwares</h2>
+      </div>
+      <div class="set-flex top-container software-container left-to-right">
+        <div class="stock-information-div bend-corners special-case-box stockbox-left software-left">
+          {% for firstFour in software_stocks|slice:":4" %}
+            <div class="set-flex information-div special-case-margin">
+              <div>
+                <a href="{% url 'search:htmxLinkDispatch' ticker_id=firstFour.ticker mtype='stocks' %}"
+                   class="ticker-modifier">{{ firstFour.ticker }}</a>
+                <p class="name-modifier">{{ firstFour.name }}</p>
+              </div>
+              <div class="grid grid-align-center">
+                {% if firstFour|get_asset_price_change|default:0 >= 0 %}
+                  <p class="price-modifier price-up">{{ firstFour|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                  {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=firstFour current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                {% else %}
+                  <p class="price-modifier price-down ">{{ firstFour|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                  {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=firstFour current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+          <div>
+            <a href="{% url 'HomePage:viewAll-view' value='Software' %}"
+               class="see-more">See More Software</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="news-heading-hidden">Software News</h3>
+        </div>
+        <div class="grid grid--3--columns news-div-small bend-corners software-small-news">
+          {% for news in softwareNews %}
+            <div class="news-article">
+              <a href="{{ news.news_url }}">
+                <img src="{{ news.image_url }}"
+                     alt="stock news image "
+                     class="news-image-small bend-corners" />
+              </a>
+              <a href="{{ news.news_url }}" class="news-title-small">{{ news.title }}</a>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="stock-information-div bend-corners right-side-software">
+          {% for lastFour in software_stocks|slice:"4:" %}
+            <div class="set-flex information-div">
+              <div>
+                <a href="{% url 'search:htmxLinkDispatch' ticker_id=lastFour.ticker mtype='stocks' %}"
+                   class="ticker-modifier">{{ lastFour.ticker }}</a>
+                <p class="name-modifier">{{ lastFour.name }}</p>
+              </div>
+              <div class="grid grid-align-center">
+                {% if lastFour|get_asset_price_change|default:0 >= 0 %}
+                  <p class="price-modifier price-up">{{ lastFour|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                  {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=lastFour current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                {% else %}
+                  <p class="price-modifier price-down ">{{ lastFour|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                  {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=lastFour current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+          <div>
+            <a href="{% url 'HomePage:viewAll-view' value='Software' %}"
+               class="see-more">See More Software</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="dow-section section-margin">
+      <div class="dow-main bend-corners">
+        <div class="set-flex align-flex-center">
+          <h3>DOW INDUSTIRALS</h3>
+        </div>
+        <div class="set-flex align-flex-center wrapper">
+          <div class="grid grid--5--columns dow30">
+            {% for stock in dowStocks %}
+              <div class="dow-info-wrapper">
+                <div>
+                  <a href="{% url 'search:htmxLinkDispatch' ticker_id=stock.ticker mtype='stocks' %}"
+                     class="ticker-modifier">{{ stock.ticker }}</a>
+                  <p class="name-modifier">{{ stock.name }}</p>
+                </div>
+                <div>
+                  {% if stock|get_asset_price_change|default:0 >= 0 %}
+                    <p class="price-modifier price-up">{{ stock|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=stock current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                  {% else %}
+                    <p class="price-modifier price-down">{{ stock|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=stock current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+            <div class="link-div dow-link">
+              <a href="{% url 'HomePage:viewAll-view' value='Dow30' %}"
+                 class="see-more ">See All Dow Stocks <ion-icon name="arrow-forward-outline"></ion-icon></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="etf-industry-section section-margin">
+      <div>
+        <div class="grid grid--3--columns etf-sectors border-orange bend-corners">
+          <div>
+            <h3>SPDR SECTORS</h3>
+          </div>
+          {% for sector in sector_etfs %}
+            <div>
+              <a href="{% url 'search:htmxLinkDispatch' ticker_id=sector.ticker mtype='stocks' %}"
+                 class="ticker-modifier">{{ sector.ticker }}</a>
+              <p class="name-modifier">{{ sector.name }}</p>
+              {% if sector|get_asset_price_change|default:0 >= 0 %}
+                <p class="price-modifier price-up">{{ sector|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=sector current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+              {% else %}
+                <p class="price-modifier price-down">{{ sector|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=sector current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    <section class="banks section-margin">
+      <div>
+        <div class="set-flex align-flex-center">
+          <h3>Big Banks</h3>
+        </div>
+        <div class="set-flex top-container left-to-right ">
+          <div class="stock-information-div bend-corners special-case-box stockbox-left bank-stockbox">
+            {% for bigBank in big_banks %}
+              <div class="set-flex information-div ">
+                <div>
+                  <a href="{% url 'search:htmxLinkDispatch' ticker_id=bigBank.ticker mtype='stocks' %}"
+                     class="ticker-modifier">{{ bigBank.ticker }}</a>
+                  <p class="name-modifier">{{ bigBank.name }}</p>
+                </div>
+                <div class="grid grid-align-center">
+                  {% if bigBank|get_asset_price_change|default:0 >= 0 %}
+                    <p class="price-modifier price-up">{{ bigBank|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=bigBank current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                  {% else %}
+                    <p class="price-modifier price-down ">{{ bigBank|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                    {% include 'reusables/swapChanges/stocksSwapChangesPlaceholder.html' with data=bigBank current_type=current_type defaultDisplay=defaultDisplay Mtype="stocks" %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+            <div>
+              <a href="{% url 'HomePage:viewAll-view' value='Bank' %}"
+                 class="see-more">See More Banks</a>
+            </div>
+          </div>
+          <div>
+            {% include 'reusables/homePageNews_small.html' with data=bankNews news_type="Big Banks" added_div="bank-div" %}
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/searchBarTemplate.js' %}"></script>
+{% endblock extra_jsfiles %}

@@ -1,0 +1,57 @@
+/*
+
+crypto #5f3dc4
+forex #c2255c
+
+
+*/
+
+
+
+.crypto-h5 {
+    color: #5f3dc4;
+    font-style: italic;
+}
+
+.forex-h5 {
+    color: #c2255c;
+}
+
+
+
+.additionalInfo-crypto {
+    gap: 1.4rem;
+    margin-top: 3.2rem;
+}
+
+.additionalHeading {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.highs-and-lows-div {
+    padding: 1rem;
+}
+
+.box-div {
+    padding: 1rem;
+    border: 1px solid #888;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4),
+        0 6px 20px 0 rgba(0, 0, 0, 0.35);
+
+}
+
+.prompt {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #555;
+}
+
+.value {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 500;
+}

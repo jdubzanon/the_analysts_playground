@@ -1,0 +1,50 @@
+@media (max-width: 940px) {
+    .alphabet-grid {
+        padding-right: 2rem;
+        border-right: 1px solid #888;
+    }
+
+    .forex-swap-media {
+        padding-left: 1.2rem;
+
+    }
+}
+
+
+@media (max-width: 900px) {
+    .currency-ticker {
+        font-weight: 500;
+    }
+
+    .base-currency-name {
+        font-size: 1rem;
+    }
+
+    .forex-swap-media {
+        border-right: 1px solid #888;
+    }
+
+}
+
+
+/* Searchbar controls */
+@media (max-width: 500px) {
+    .search-bar-div form {
+        min-width: 90%;
+    }
+}
+
+@media (max-width: 450px) {
+    .search-bar-div form {
+        min-width: 100%;
+    }
+
+    input::placeholder {
+        color: black;
+    }
+
+    input[type="text"] {
+        font-size: 1rem;
+
+    }
+}

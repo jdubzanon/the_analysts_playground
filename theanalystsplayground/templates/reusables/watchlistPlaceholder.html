@@ -1,0 +1,57 @@
+{% load custom_filters %}
+
+{% if watchlist_bad_request %}
+  {% include "reusables/bad_request_template.html" %}
+{% else %}
+  <div>
+    {% if user_watchlist and not watchlist_bad_request %}
+      {% for key, data in allData.items %}
+        <div class="special-wrapper">
+          <div class=" watchlist-entries set-flex">
+            <div class="info-text-div">
+              <a href="{% url 'search:htmxLinkDispatch' ticker_id=data.ticker mtype=data.market_type %}"
+                 class="stock-ticker">{{ data.ticker }}</a>
+            </div>
+            <div class=" price-data set-flex">
+              {% if data.data.session and data.market_type == "fx" %}
+                <p>{{ data.data|forex_price_alternative|floatformat:2|default:"N.A." }}</p>
+                {% if data.data|forex_price_change_alternative|default:0 >= 0 %}
+                  <p class="changePerc price-up">({{ data.data|forex_percent_change_alternative|floatformat:2|default:"N.A." }}%)</p>
+                {% else %}
+                  <p class="changePerc price-down">({{ data.data|forex_percent_change_alternative|floatformat:2|default:"N.A." }}%)</p>
+                {% endif %}
+              {% elif data.market_type == "indices" %}
+                <p>{{ data.data|get_asset_price_special_case|floatformat:2|default:"N.A." }}</p>
+                {% if data.data|get_asset_price_change_special_case|default:0 >= 0 %}
+                  <p class="changePerc price-up">
+                    ({{ data.data|get_asset_percent_change_special_case|floatformat:2|default:"N.A." }}%)
+                  </p>
+                {% else %}
+                  <p class="changePerc price-down">
+                    ({{ data.data|get_asset_percent_change_special_case|floatformat:2|default:"N.A." }}%)
+                  </p>
+                {% endif %}
+              {% else %}
+                <p>{{ data.data|get_asset_price|floatformat:2|default:"N.A." }}</p>
+                {% if data.data|get_asset_price_change|default:0 >= 0 %}
+                  <p class="changePerc price-up">({{ data.data|get_asset_percent_change|floatformat:2|default:"N.A." }}%)</p>
+                {% else %}
+                  <p class="changePerc price-down">({{ data.data|get_asset_percent_change|floatformat:2|default:"N.A." }}%)</p>
+                {% endif %}
+              {% endif %}
+            </div>
+            <a href="#"
+               hx-post="{% url 'dashboard_app:_htmxSwapDelete' ticker_id=data.ticker mtype=data.market_type %}"
+               hx-target="#swappable-content"
+               hx-trigger="click"
+               onclick="divSwapper('{{ key }}')"
+               class="delete-link">Delete</a>
+          </div>
+          <p class="watchlist-company-name">{{ data.company_name }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class=" no-stocks-text">ADD SOMETHING TO YOUR WATCHLIST!!</p>
+    {% endif %}
+  </div>
+{% endif %}

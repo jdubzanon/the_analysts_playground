@@ -1,0 +1,80 @@
+{% load custom_filters %}
+
+{% if portfolio_bad_request %}
+  {% include "reusables/bad_request_template.html" %}
+{% else %}
+  {% for stock, data in Portfolio.items %}
+    <div class="data-grid-item">
+      <a href="{% url 'search:htmxLinkDispatch' ticker_id=data.ticker mtype=data.market_type %}">{{ data.ticker }}</a>
+      <p>{{ data.company_name }}</p>
+      {% if data.market_type == "crypto" %}
+        <p class="crypto-color heavy-font">{{ data.market_type }}</p>
+      {% elif data.market_type == "stocks" %}
+        <p class="stocks-color heavy-font">{{ data.market_type }}</p>
+      {% elif data.market_type == "fx" %}
+        <p class="forex-color heavy-font">forex</p>
+      {% endif %}
+      <p class="data-labels">
+        Shares: <span class="modify-values">{{ data.shares_owned }}</span>
+      </p>
+      <p class="data-labels">
+        Price Per Share: <span class="modify-values">{{ data.price_per_unit }}</span>
+      </p>
+      {% if data.data.session %}
+        <p class="data-labels">
+          today price: <span class="modify-values">{{ data.data|forex_price_alternative|floatformat:2|default:"N.A." }}</span>
+        </p>
+      {% else %}
+        <p class="data-labels">
+          today price: <span class="modify-values">{{ data.data|get_asset_price|floatformat:2|default:"N.A." }}</span>
+        </p>
+      {% endif %}
+      {% with calculated_value=data|calculate_value %}
+        {% if calculated_value >= 0 %}
+          <p class="data-labels">
+            Gain/Loss <span class="modify-values price-up">{{ calculated_value|floatformat:2 }}</span>
+          </p>
+        {% else %}
+          <p class="data-labels">
+            Gain/Loss <span class="modify-values price-down">{{ calculated_value|floatformat:2|default:"calc error" }}</span>
+          </p>
+        {% endif %}
+      {% endwith %}
+      <div class=" modify-links-div set-flex">
+        <a href="#"
+           hx-post="{% url 'dashboard_app:_htmxPortfolioItemDelete' ticker_id=data.ticker mtype=data.market_type %}"
+           hx-target="#swap-this">Delete</a>
+        <a href="#"
+           onclick="editFormToggler('open'); getPresetValues('{{ data.shares_owned }}','{{ data.price_per_unit }}','{{ data.ticker }}','{{ data.company_name }}')"
+           id="portfolio-edit-btn">Edit</a>
+      </div>
+    </div>
+  {% endfor %}
+  <div class="bottom-of-portfolio">
+    <div class="total-gain-loss-div">
+      {% if totalGainLoss %}
+        {% if totalGainLoss >= 0 %}
+          <p class="total-gain-loss-text">
+            Total Gain/Loss: <span class="total-gain-loss price-up">{{ totalGainLoss|floatformat:2 }}</span>
+          </p>
+        {% else %}
+          <p class="total-gain-loss-text">
+            Total Gain/Loss: <span class="total-gain-loss price-down">{{ totalGainLoss|floatformat:2 }}</span>
+          </p>
+        {% endif %}
+      {% else %}
+        {% if hasData %}
+          <p class="total-gain-loss-text">Unable to make calculation</p>
+        {% else %}
+          <p class="no-stocks-text">Add Stocks to your portfolio !!</p>
+        {% endif %}
+      {% endif %}
+      <div class="add-stocks-link-class">
+        <a href="#"
+           id="portfolio-form-link"
+           class="portfolio-form-link-class"
+           onclick="formToggler('open')">Add to Portfolio Here!</a>
+      </div>
+    </div>
+  </div>
+{% endif %}

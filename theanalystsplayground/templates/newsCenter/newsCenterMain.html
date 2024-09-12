@@ -1,0 +1,292 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/newsCenter/newsCenter_styles.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/newscenter.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <div class="newsCenter-form-div">
+    <form action="{% url 'newsCenter:newscenter_form_handler' %}" method="get">
+      <div class="form-instructions set-flex">
+        <h2>CHOOSE FILTERS TO FILTER OUT NEWS</h2>
+      </div>
+      <label for="ticker-input-box" class="ticker-input-label">Enter Ticker Here</label>
+      <input type="text"
+             id="ticker-input-box"
+             name="ticker"
+             class="ticker-input-box"
+             placeholder="( must be a ticker )" />
+      <fieldset class=" main-field-set fontSizeIncrease">
+        <div class="set-flex market-sentiment-box">
+          <div>
+            <legend>Choose Market</legend>
+            <fieldset>
+              <div>
+                <input type="radio"
+                       id="stocks"
+                       name="market_type"
+                       value="stocks"
+                       checked="true" />
+                <label for="market_type">stocks</label>
+              </div>
+              <div>
+                <input type="radio" id="crypto" name="market_type" value="crypto" />
+                <label for="market_type">crypto</label>
+              </div>
+            </fieldset>
+          </div>
+          <div>
+            <legend>Select Sentiment</legend>
+            <fieldset class="sentiment-class ">
+              <div>
+                <input type="radio" id="positive" name="sentiment" value="positive" />
+                <label for="positive">Positive</label>
+              </div>
+              <div>
+                <input type="radio" id="negative" name="sentiment" value="negative" />
+                <label for="negative">Negative</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <!-- CHECKBOX FIELDSET -->
+        <div>
+          <legend>Select Media-Type:</legend>
+          <fieldset class="media-type-class">
+            <div>
+              <input type="checkbox" id="article" name="article" />
+              <label for="article">Article</label>
+            </div>
+            <div>
+              <input type="checkbox" id="video" name="video" />
+              <label for="video">Video</label>
+            </div>
+          </fieldset>
+        </div>
+        <!-- START CHECKBOX FOR SOURCES -->
+        <div class="grid grid--2--columns sources-box">
+          <div class="source-field-set-wrapper">
+            <fieldset>
+              <legend>Major News Sources:</legend>
+              <div class="source-field-set grid grid--2--columns">
+                <div>
+                  <input type="checkbox" id="cnbc" name="CNBC" />
+                  <label for="cnbc">CNBC</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="benzinga" name="Benzinga" />
+                  <label for="benzinga">Benzinga</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="forbes" name="Forbes" />
+                  <label for="forbes">Forbes</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="fox-business" name="Fox+Business" />
+                  <label for="fox-business">Fox Business</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="Investopedia" name="Investopedia" />
+                  <label for="Investopedia">Investopedia</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="Barrons" id="Barrons" />
+                  <label for="Barrons">Barrons</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="Business+Insider" id="business-insider" />
+                  <label for="business-insider">BusinessInsider</label>
+                </div>
+                <!-- start -->
+                <div>
+                  <input type="checkbox"
+                         name="Bloomberg+Markets+and+Finance"
+                         id="bloomberg-finance" />
+                  <label for="bloomberg-finance">Bloomberg Markets and Finance</label>
+                </div>
+                <!-- end -->
+                <div>
+                  <input type="checkbox" name="ETF+Trends" id="ETF+Trends" />
+                  <label for="ETF+Trends">ETF Trends</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="Market+Watch" id="Market+Watch" />
+                  <label for="Market+Watch">Market Watch</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="New+York+Post" id="new-york-post" />
+                  <label for="new-york-post">New York Post</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="Reuters" id="Reuters" />
+                  <label for="Reuters">Reuters</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="Schwab+Network" id="Schwab+Network" />
+                  <label for="Schwab+Network">Schwab Network</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="Seeking+Alpha" id="Seeking+Alpha" />
+                  <label for="Seeking+Alpha">Seeking Alpha</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="Yahoo+Finance" id="Yahoo+Finance" />
+                  <label for="Yahoo+Finance">YahooFinance</label>
+                </div>
+                <div>
+                  <input type="checkbox"
+                         name="Zacks+Investment+Research"
+                         id="Zacks+Investment+Research" />
+                  <label for="Zacks+Investment+Research">Zacks Investment Research</label>
+                </div>
+              </fieldset>
+            </div>
+            <div class="source-field-set-wrapper">
+              <fieldset>
+                <legend>Crypto News Sources:</legend>
+                <div class="grid grid--2--columns source-field-set">
+                  <div>
+                    <input type="checkbox" name="Bitcoin+Magazine" id="Bitcoin+Magazine" />
+                    <label for="Bitcoin+Magazine">BitcoinMagazine</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Coindesk" id="Coindesk" />
+                    <label for="Coindesk">CoinDesk</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Bitcoin" id="Bitcoin" />
+                    <label for="Bitcoin">Bitcoin</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Blockchain+News" id="Blockchain+News" />
+                    <label for="Blockchain+News">BlockchainNews</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="BeInCrypto" id="BeInCrypto" />
+                    <label for="BeInCrypto">BeInCrypto</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Bitcoinist" id="Bitcoinist" />
+                    <label for="Bitcoinist">Bitcoinist</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Blockworks" id="Blockworks" />
+                    <label for="Blockworks">Blockworks</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Crypto+Daily" id="Crypto+Daily" />
+                    <label for="Crypto+Daily">CryptoDaily</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Coingape" id="Coingape" />
+                    <label for="Coingape">Coingape</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Crypto+Briefing" id="Crypto+Briefing" />
+                    <label for="Crypto+Briefing">CryptoBriefing</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Crypto+Economy" id="Crypto+Economy" />
+                    <label for="Crypto+Economy">Crypto+Economy</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="CryptoNews" id="CryptoNews" />
+                    <label for="CryptoNews">CryptoNews</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Dailycoin" id="Dailycoin" />
+                    <label for="Dailycoin">Dailycoin</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Decrypt" id="Decrypt" />
+                    <label for="Decrypt">Decrypt</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="Crypto+Reporter" id="Crypto+Reporter" />
+                    <label for="Crypto+Reporter">CryptoReporter</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="TheNewsCrypto" id="TheNewsCrypto" />
+                    <label for="TheNewsCrypto">TheNewsCrypto</label>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+          <div class="submit-btn-div">
+            <button type="submit" class="submit-btn">Submit</button>
+          </div>
+        </fieldset>
+        <!-- box displaying ticker details -->
+        {% if with_ticker %}
+          {% if requestCheck and ticker_found and not snapshot_statuscheck_failed %}
+            <div class="quick-details">
+              <div class="quick-title">
+                {% if market_type == "crypto" %}
+                  <h2 class="ticker-detail">{{ cryptoTicker }}</h2>
+                {% else %}
+                  <h2 class="ticker-detail">{{ companyDetails.ticker }}</h2>
+                {% endif %}
+              </div>
+              <p class="information-text">{{ companyDetails.name }}</p>
+              <div class="currentPrice set-flex quick-details-spacing information-text">
+                <p>Current Price</p>
+                <p>{{ priceDetails|get_asset_price|floatformat:2|default:"N.A." }}</p>
+              </div>
+              <div class="yesterdayClose set-flex quick-details-spacing information-text">
+                <p>Yesterday's Close</p>
+                <p>{{ priceDetails.prevDay.c|floatformat:2 }}</p>
+              </div>
+              <div class="todaysChange set-flex quick-details-spacing information-text">
+                <p>Today's Change</p>
+                <p>{{ priceDetails|get_asset_price_change|floatformat:2|default:"N.A." }}</p>
+              </div>
+            {% elif not snapshot_statuscheck_failed and not ticker_found %}
+              <div class="no-filters-match-div">
+                <p>Sorry we found no matches for those filters</p>
+              </div>
+            {% elif snapshot_statuscheck_failed %}
+              <div class="no-filters-match-div">
+                <p>Sorry bad request for ticker details</p>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+  <div class="container">
+    {% if defaultDisplay %}
+      {% include "reusables/newsTemplate.html" with newsDataDefault=generalNews template="defaultDisplay" %}
+    {% endif %}
+    {% if requestCheck %}
+      {% if with_ticker %}
+        {% if not news_response_failed and not news_response_ticker_failure %}
+          {% include "reusables/newsTemplate.html" with all_news=newsData template="newsCenter" requestCheck=requestCheck %}
+        {% elif news_response_failed and not news_response_ticker_failure %}
+          <div class="news-badrequest">
+            <p>Failed to load news, please reload and try again</p>
+          </div>
+        {% endif %}
+      {% else %}
+        {% if not news_response_failed %}
+          {% include "reusables/newsTemplate.html" with all_news=newsData template="newsCenter" requestCheck=requestCheck %}
+        {% else %}
+          <div class="news-badrequest">
+            <p>Failed to load news, please reload and try again</p>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </div>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/newsCenter.js' %}"></script>
+{% endblock extra_jsfiles %}

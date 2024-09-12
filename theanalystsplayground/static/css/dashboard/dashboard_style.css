@@ -1,0 +1,342 @@
+  /* Colors
+price up #37b24d
+price down: #e03131
+percent text #228be6
+stock color main #ff922b
+
+font color grays
+#495057
+
+borders
+border-bottom and nav links #0b7285
+horizontal layout border: #dee2e6
+vertical layout border #b197fc
+
+link colors
+news links #095b6a
+stock link color main: #4263eb
+*/
+
+  .heavy-font {
+      font-weight: 500;
+  }
+
+  .crypto-color {
+      color: #5f3dc4;
+
+  }
+
+  .stocks-color {
+      color: #d9480f
+  }
+
+  .forex-color {
+      color: #c2255c;
+  }
+
+  .dashboard-main-div {
+      margin: 8.4rem 0;
+
+  }
+
+
+  .dashboard-heading {
+      margin-bottom: 6.4rem;
+
+  }
+
+  .username {
+      color: green;
+      font-size: 3.4rem;
+  }
+
+  .dashboard-child-div {
+      justify-content: space-around;
+      align-items: start;
+  }
+
+  .block-headers {
+      justify-content: center;
+      padding: 1.2rem 1rem;
+      color: #fff;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+  }
+
+  .form-prompt {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #000;
+  }
+
+  form label {
+      font-size: 1.2rem;
+  }
+
+  .form-submit-button-class {
+      font-size: 1.2rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 5px;
+      background-color: #000;
+      color: #fff;
+      font-weight: 500;
+      box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2), 2px 3px 3px rgba(0, 0, 0, 0.25);
+  }
+
+  .close-link {
+      font-size: 1.2rem;
+  }
+
+  /* WATCHLIST STUFF */
+
+  .watchlist-container {
+      border: 1px solid #888;
+      padding: 1.2rem;
+      border-radius: 5px;
+      box-shadow: 5px 12px 25px rgba(66, 99, 235, 0.25), 5px 8px 8px rgba(66, 99, 235, 0.3);
+      width: 45%;
+
+
+  }
+
+  .watchlist-header {
+      background-color: #4263eb;
+  }
+
+  .stocks-bucket {
+      border-top: none;
+  }
+
+  .watchlist-entries {
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+
+  }
+
+  .watchlist-entries p {
+      margin-bottom: 0 !important;
+  }
+
+  .info-text-div {
+      width: 50%;
+      font-size: 1.2rem;
+  }
+
+  .price-data {
+      gap: 1rem;
+      font-size: 1.2rem;
+  }
+
+  .stock-ticker {
+      color: #4263eb;
+      font-weight: 500;
+      font-size: 1.2rem;
+  }
+
+  .stock-ticker:hover {
+      color: #37b24d;
+  }
+
+
+  .htmxResponseTarget {
+      color: #ff0054;
+      font-size: 1.4rem;
+      font-style: italic;
+      font-weight: 500;
+      min-height: 2.4rem;
+  }
+
+  .portfolioResponseTarget {
+      color: #ff0054;
+      font-size: 1.4rem;
+      font-style: italic;
+      font-weight: 500;
+
+  }
+
+
+
+  .entry-form-class {
+      font-size: 1.2rem;
+      padding: 1rem 0;
+  }
+
+  .delete-link {
+      font-size: 1.2rem;
+  }
+
+  .add-stocks-link-class {
+      display: inline-block;
+      font-size: 1.4rem;
+      padding: 1rem 0rem;
+
+  }
+
+  .add-stocks-link-class:hover {
+      color: #37b24d;
+  }
+
+  .done-link-class {
+      font-size: 1.4rem;
+  }
+
+  .no-stocks-text {
+      font-size: 1.6rem;
+  }
+
+  .ion-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+  }
+
+  .ion-close:hover {
+      color: #37b24d;
+  }
+
+  .orange-text {
+      color: #ff922b;
+  }
+
+  .multiResponse-wrapper {
+      border: 2px solid #37b24d;
+      padding: 1rem;
+      border-radius: 5px;
+      position: relative;
+  }
+
+  .header-modifier {
+      font-size: 1.3rem;
+      margin-top: 1.4rem;
+  }
+
+  .watchlist-submit-btn {
+      padding: 0.25rem 1rem;
+      margin-left: 1.4rem;
+      border-radius: 5px;
+      background-color: #4263eb;
+      color: #fff;
+      border: none;
+      box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2), 2px 3px 3px rgba(0, 0, 0, 0.25);
+      font-weight: 500;
+      transition: all 0.3s;
+  }
+
+  .watchlist-submit-btn:hover {
+      background-color: #fff;
+      color: #4263eb;
+      font-weight: 500;
+  }
+
+
+  .watchlist-container {
+      position: relative;
+  }
+
+  .watchlist-company-name {
+      margin-top: -10px;
+      font-size: 1.2rem;
+  }
+
+  /* PORFOLIO STUFF */
+  .portfolio-container {
+      padding: 1.2rem;
+      border: 1px solid #888;
+      width: 50%;
+      border-radius: 5px;
+      box-shadow: 5px 12px 25px rgba(255, 146, 43, 0.25), 5px 8px 8px rgba(255, 146, 43, 0.3);
+  }
+
+  .portfolio-header {
+      background-color: #ff922b;
+  }
+
+  .portfolio-edit-form #id_companyName,
+  .portfolio-edit-form #id_ticker {
+      border: none;
+  }
+
+  .portfolio-form {
+      position: fixed;
+      top: 20%;
+      right: 50%;
+      background-color: #f1f3f5;
+      border: 1px solid #333;
+      padding: 1.2rem;
+      border-radius: 5px;
+      z-index: 3;
+      transform: translateX(50%);
+  }
+
+  .portfolio-bucket {
+      gap: 1rem;
+
+  }
+
+
+  .data-grid-item {
+      padding: 0.5rem;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2), 2px 3px 3px rgba(0, 0, 0, 0.25);
+  }
+
+  .data-grid-item p {
+      margin-bottom: 0 !important;
+
+  }
+
+  .data-labels {
+      font-style: italic;
+      color: #444;
+  }
+
+  .modify-values {
+      font-size: 1.2rem;
+      font-weight: 500;
+      font-style: normal;
+  }
+
+  .modify-links-div {
+      gap: 1.2rem;
+  }
+
+  .top-of-form {
+      justify-content: space-between;
+  }
+
+  .bottom-of-portfolio {
+      grid-row: span 2;
+      grid-column: 1 / span 2;
+      position: relative;
+  }
+
+  .total-gain-loss-div {
+      padding: 1rem 0rem;
+  }
+
+  .total-gain-loss-text {
+      font-size: 1.2rem;
+      color: #444;
+      font-style: italic;
+  }
+
+  .total-gain-loss {
+      font-size: 1.8rem;
+      font-weight: 500;
+  }
+
+  /* EDIT FORM STUFF */
+
+  .portfolio-edit-form {
+      position: fixed;
+      top: 20%;
+      right: 50%;
+      background-color: #f1f3f5;
+      border: 1px solid #333;
+      padding: 1.2rem;
+      border-radius: 5px;
+      transform: translateX(50%);
+      z-index: 3;
+  }

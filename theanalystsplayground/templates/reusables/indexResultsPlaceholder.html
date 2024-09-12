@@ -1,0 +1,47 @@
+<div class="index-results-main">
+  <div class="results-info-prompt set-flex align-flex-center">
+    <p>Results {{ from }} to {{ to }} of {{ total_results }} for {{ name|upper }}</p>
+  </div>
+  {% for obj in data %}
+    <div>
+      <a href="{% url 'search:htmxLinkDispatch' ticker_id=obj.public_ticker mtype=obj.market_type %}"
+         class="link-decoration">{{ obj.public_ticker }}</a>
+      <p class="companyName-style">{{ obj.company_name }}</p>
+    </div>
+  {% endfor %}
+  {% if prevPage and not nextPage %}
+    <div>
+      <a href="#"
+         class="pagination-link-decoration"
+         hx-post="{% url 'indexSearch:htmxCategoryPagination' name=name index_low=index_low index_high=index_high page_requested='prevPage' %}"
+         hx-swap="innerHTML"
+         hx-target="#results-swap"
+         hx-trigger="click"
+         hx-push-url="true">Previous50</a>
+    </div>
+  {% endif %}
+  {% if nextPage %}
+    <div class="set-flex align-flex-spacebetween">
+      {% if prevPage %}
+        <div>
+          <a href="#"
+             class="pagination-link-decoration"
+             hx-post="{% url 'indexSearch:htmxCategoryPagination' name=name index_low=index_low index_high=index_high page_requested='prevPage' %}"
+             hx-swap="innerHTML"
+             hx-target="#results-swap"
+             hx-trigger="click"
+             hx-push-url="true">Previous50</a>
+        </div>
+      {% endif %}
+      <div>
+        <a href="#"
+           class="pagination-link-decoration"
+           hx-post="{% url 'indexSearch:htmxCategoryPagination' name=name index_low=index_low index_high=index_high page_requested='nextPage' %}"
+           hx-swap="innerHTML"
+           hx-target="#results-swap"
+           hx-trigger="click"
+           hx-push-url="true">Next50</a>
+      </div>
+    </div>
+  {% endif %}
+</div>

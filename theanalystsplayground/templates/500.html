@@ -1,0 +1,30 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/requestErrors/errorStyles.css' %}" />
+{% endblock extra_css %}
+{% block title %}
+  Server Error
+{% endblock title %}
+{% block content %}
+  <div class="set-flex align-flex-center vertical-align-center main-div-error">
+    <div>
+      <img src="{% static 'images/requestErrors/500_server1.jpg' %}"
+           alt="server error playfule image"
+           class="left-image bend-corners" />
+    </div>
+    <div>
+      <h1>
+        Ooops!!! 500 Server <span class="error">Error</span>
+      </h1>
+      <h3>Looks like something went wrong!</h3>
+      <p class="text-modifier-small">
+        if the problem persists leave a comment in the feedback section. In the meantime, try
+        refreshing.
+      </p>
+    </div>
+  </div>
+{% endblock content %}

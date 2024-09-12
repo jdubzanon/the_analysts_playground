@@ -1,0 +1,309 @@
+  /* Colors
+price up #37b24d
+price down: #e03131
+percent text #228be6
+stock color main #ff922b
+
+font color grays
+#495057
+
+borders
+border-bottom and nav links #0b7285
+horizontal layout border: #dee2e6
+vertical layout border #b197fc
+
+link colors
+news links #095b6a
+stock link color main: #4263eb
+
+
+
+
+*/
+
+
+  /* GRID STUFF */
+  .grid--2--columns {
+      grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid--3--columns {
+      grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid--4--columns {
+      grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid--5--columns {
+      grid-template-columns: repeat(5, 1fr);
+  }
+
+  .grid {
+      display: grid;
+  }
+
+  .grid-align-center {
+      justify-items: center;
+  }
+
+  .grid-vertical-align-start {
+      align-items: start;
+  }
+
+  /* FLEXBOX */
+  .set-flex {
+      display: flex;
+  }
+
+  .align-flex-center {
+      justify-content: center;
+  }
+
+  .align-flex-end {
+      justify-content: end;
+  }
+
+  .align-flex-spacebetween {
+      justify-content: space-between;
+  }
+
+  .align-flex-spacearound {
+      justify-content: space-around;
+  }
+
+  .align-flex-start {
+      justify-content: start;
+  }
+
+  .vertical-align-center {
+      align-items: center;
+  }
+
+  .full-width {
+      width: 100%;
+  }
+
+  /* BORDER-RADIUS */
+  .bend-corners {
+      border-radius: 5px;
+  }
+
+  /* COLORS */
+  .price-up {
+      color: #37b24d;
+  }
+
+
+  .price-down {
+      color: #e03131;
+  }
+
+  .arrow {
+      font-size: 1.4rem;
+  }
+
+  .forex-color {
+      color: #c2255c;
+  }
+
+  .stocks-color {
+      color: #ff922b;
+
+  }
+
+  .crypto-color {
+      color: #5f3dc4;
+  }
+
+  .indices-color {
+      color: #c92a2a;
+  }
+
+  .open {
+      color: #37b24d;
+  }
+
+  .closed {
+      color: #e03131
+  }
+
+  .other-status {
+      color: #1864ab;
+  }
+
+  /* REUSED NEWS STYLES SEARCH-RESULT-PAGES AND HOMEPAGE*/
+
+  .individual-news-article {
+      border-bottom: 2px solid salmon;
+  }
+
+  .news-image {
+      height: 8rem;
+      width: auto;
+      border-radius: 8px;
+  }
+
+  .news-text {
+      font-size: 1.2rem;
+
+  }
+
+  .news-medium {
+      color: #d9480f;
+  }
+
+  .news-text-info {
+      font-weight: 500;
+      margin-bottom: 0 !important;
+
+  }
+
+  .news-type {
+      color: #e03131;
+  }
+
+  /* REUSED FOR SEARCH BAR */
+
+  /* THIS IS THE MAIN SEARCH BAR DIV */
+  .search-bar-div {
+      justify-content: center;
+      width: 100%;
+      margin: 4.8rem 0 4.8rem 0;
+  }
+
+  /* THIS IS A SEARCH BAR DIV THAT WRAPS THE FORM*/
+  .search-bar {
+      padding: 1rem;
+      width: 120rem;
+      margin: 4.8rem 0 4.8rem 0;
+
+  }
+
+  /* SEARCH FORM CLASS */
+  .search-form {
+
+      width: 75%;
+      position: relative;
+  }
+
+  /* THIS IS THE INPUT FOR THE SEARCH FORM */
+  .bar-of-search {
+      border-radius: 500px;
+      height: 3.6rem;
+      width: 100%;
+      text-align: center;
+      border: 2px solid #37b24d;
+
+  }
+
+
+  .bar-of-search:focus {
+      outline: none;
+      border-color: #3b5bdb;
+  }
+
+  input:focus::placeholder {
+      visibility: hidden;
+  }
+
+
+
+  input[type="text"] {
+      font-size: 1.4rem;
+  }
+
+
+  .htmx-general-class {
+      position: absolute;
+      top: 3.6rem;
+      right: 50%;
+      min-width: 30rem;
+      max-width: 30rem;
+      max-height: 50rem;
+      overflow-y: scroll;
+      background-color: #fff;
+      padding: 1.2rem;
+      border: 2px solid #888;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      z-index: 1000;
+      transform: translateX(50%);
+
+  }
+
+  .results-close-link-div {
+      justify-content: end;
+  }
+
+  .stockLink:link,
+  .stockLink:visited {
+      font-size: 1.2rem;
+      color: #3b5bdb;
+      font-weight: 500;
+  }
+
+  .stockLink:active,
+  .stockLink:hover {
+      color: #37b24d;
+      font-weight: 500;
+  }
+
+  /* REUSABLE CHART STYLES */
+  .stock-chart-frame {
+      position: relative;
+      min-height: 45rem;
+  }
+
+  .links-div {
+      position: absolute;
+      top: 15%;
+      left: 5%;
+  }
+
+
+
+
+
+
+  /* REUSABLE NEWS TEMPLATE */
+  .news-articles-grid {
+      padding: 0 2rem;
+      border: 2px solid #bdbec0;
+      border-bottom: none;
+  }
+
+  .individual-news-article {
+      padding: 1.2rem 1.2rem;
+  }
+
+  .modifier {
+      flex-direction: column;
+  }
+
+  .news-heading-div {
+      justify-content: center;
+  }
+
+  .news-image-div {
+      padding-bottom: 1.2rem;
+  }
+
+
+  .news-section-div a:link,
+  .news-section-div a:visited {
+      color: #4263eb;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+  }
+
+  .news-section-div a:hover,
+  .news-section-div a:active {
+      color: #37b24d;
+
+  }
+
+  .news-text-info {
+      margin-bottom: 0 !important;
+  }

@@ -1,0 +1,93 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/currencySearchStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/generalSearchResultStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/search_result.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <section class="search-bar-section">
+    <div class="search-bar-div set-flex">{% include "Search/SearchBarTemplate.html" %}</div>
+  </section>
+  <section class="price-section">
+    <h5 class="crypto-h5">CRYPTO</h5>
+    <div class="set-flex gap-large price-section-main currency-price-section">
+      <p class="text-modifier-large weight-modifier">{{ ticker }}</p>
+      <div>
+        <p class="text-modifier-large">{{ snapshot|get_asset_price|floatformat:2|default:"unavailable" }}</p>
+        <div class="set-flex gap-small">
+          {% if snapshot|get_asset_price_change|default:0 >= 0 %}
+            <p class="text-modifier-med price-up">{{ snapshot|get_asset_price_change|floatformat:4|default:"N.A." }}</p>
+            <p class="text-modifier-med price-up">{{ snapshot|get_asset_percent_change|floatformat:4|default:"N.A" }}%</p>
+          {% else %}
+            <p class="text-modifier-med price-down">{{ snapshot|get_asset_price_change|floatformat:4|default:"N.A." }}</p>
+            <p class="text-modifier-med price-down">{{ snapshot|get_asset_percent_change|floatformat:4|default:"N.A." }}%</p>
+          {% endif %}
+        </div>
+      </div>
+      <div>
+        {% if in_watchlist %}
+          <a href="#"
+             class="individual-action-link add-watchlist  currency-watchlist-link"
+             hx-post="{% url 'search:_addRemoveWatchlist' ticker_id=ticker mtype=market_type %}"
+             hx-swap="true"
+             onclick="return false;">Remove from watchlist</a>
+        {% else %}
+          <a href="#"
+             class="individual-action-link add-watchlist  currency-watchlist-link"
+             hx-post="{% url 'search:_addRemoveWatchlist' ticker_id=ticker mtype=market_type %}"
+             hx-swap="true"
+             onclick="return false;">Add to watchlist</a>
+        {% endif %}
+      </div>
+    </div>
+    <div>
+      <h4>{{ name }}</h4>
+    </div>
+  </section>
+  <section class="additionalInformation-section">
+    <div class="set-flex additionalInfo-crypto">
+      <div class="highs-and-lows-div">
+        <p class="additionalHeading">Highs and Lows</p>
+        <p class="prompt">
+          52 Week High: <span class="value">{{ fiftyTwoHigh|floatformat:2|default:"N.A" }}</span>
+        </p>
+        <p class="prompt">
+          52 Week Low: <span class="value">{{ fiftyTwoLow|floatformat:2|default:"N.A." }}</span>
+        </p>
+        <p class="prompt">
+          Previous Close: <span class="value">{{ snapshot.prevDay.c|floatformat:2|default:"N.A." }}</span>
+        </p>
+      </div>
+      <div class="box-div">
+        <h5>Last Trade</h5>
+        <p class="prompt">
+          Price: <span class="value">{{ snapshot|last_trade_price|floatformat:3|default:"unavailable" }}</span>
+        </p>
+        <p class="prompt">
+          Size: <span class="value">{{ snapshot|last_trade_size|floatformat:6|default:"unavailable" }}</span>
+        </p>
+        <p class="prompt">
+          Time: <span class="value">{{ timestamp|timestamp_converter|default:"unavailable" }}</span>
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="chart-section">
+    <div class="stock-chart-frame" id="stock-chart-switch">
+      {% include "reusables/chartPlaceholder.html" with chart=chart current_ticker=nonPublicTicker %}
+    </div>
+  </section>
+  <section class="news-section">
+    {% include 'reusables/newsTemplate.html' with all_news=news template="searchResult" ticker=ticker %}
+  </section>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/searchBarTemplate.js' %}"></script>
+{% endblock extra_jsfiles %}

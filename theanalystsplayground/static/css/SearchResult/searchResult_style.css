@@ -1,0 +1,49 @@
+/* Colors
+price up #37b24d
+price down: #e03131
+link color main: #4263eb
+company name color main #e9590c
+company name additional color #495057
+
+
+
+*/
+
+/* SEARCHRESULT CSS */
+
+.stocks-h5 {
+  color: #ff922b
+}
+
+.chart-with-info {
+  grid-template-columns: 60fr 40fr;
+  gap: 2rem;
+
+}
+
+/* FINANCIAL SUMMARY GRID */
+th {
+  padding: 0.5rem;
+}
+
+td {
+  padding: 0.5rem;
+}
+
+.table-text-mod {
+  font-size: 1.4rem;
+}
+
+.table-id {
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.add-margin {
+  margin-bottom: 3.6rem;
+}
+
+.card {
+  border-radius: 5px;
+}

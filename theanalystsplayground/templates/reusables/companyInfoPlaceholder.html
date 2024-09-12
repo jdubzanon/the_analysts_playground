@@ -1,0 +1,25 @@
+{% if error %}
+  {% include "reusables/bad_request_template.html" %}
+{% else %}
+  <div class="company-details">
+    <div class="company-details-heading set-flex">
+      <h3>Company Details</h3>
+      <a href="#"
+         class="close-link-company-info"
+         onclick="closePopup('companyInfo')">close</a>
+    </div>
+    <h4 class="margin-modifier">Company Name</h4>
+    <p class="modifier ">{{ company_name }}</p>
+    <div class="margin-modifier">
+      <h4>Address:</h4>
+      <p class="modifier">Street: {{ address.address1|default:"N/A" }}</p>
+      <p class="modifier">City: {{ address.city|default:"N/A" }}</p>
+      <p class="modifier">State: {{ address.state|default:"N/A" }}</p>
+      <p class="modifier">Postal Code: {{ address.postal_code|default:"N/A" }}</p>
+      <p class="modifier">Phone Number: {{ phoneNumber }}</p>
+    </div>
+    <h4 class="margin-modifier">Company description</h4>
+    <p class="company-description modifier">{{ description }}</p>
+    {% if website %}<a href="{{ website }}" class="website-link">Company Website</a>{% endif %}
+  </div>
+{% endif %}

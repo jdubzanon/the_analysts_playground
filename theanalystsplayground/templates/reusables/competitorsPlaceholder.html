@@ -1,0 +1,49 @@
+{% load custom_filters %}
+
+{% if error %}
+  {% include "reusables/bad_request_template.html" %}
+{% else %}
+  <div class="competitor-section-box set-flex">
+    <div class="close-link set-flex align-flex-end">
+      <a href="#"
+         onclick="closePopup('relatedStocks')"
+         class="competitor-close">close</a>
+    </div>
+    <div class="competitor-section-title">
+      <h5>STOCKS IN {{ ticker }}'s INDUSTRY</h5>
+    </div>
+    {% for ticker , jsonItems in competitors_snapshot.items %}
+      <div class="competitor-flex-wrapper">
+        <div class="competitors-flex set-flex">
+          <div class="competitor-identification">
+            <div class="comp-link-div set-flex">
+              <a href="{% url 'search:htmxLinkDispatch' ticker_id=ticker mtype='stocks' %}"
+                 class="competitor-ticker">{{ ticker }}</a>
+            </div>
+            <p class="competitor-name">{{ jsonItems.company_name }}</p>
+          </div>
+          <div class="competitor-numbers">
+            <p class="competitor-price">{{ jsonItems.data|get_asset_price|floatformat:2|default:"N.A." }}</p>
+            {% if jsonItems.data|get_asset_price_change|default:0 >= 0 %}
+              <div class="competitor-today-change set-flex">
+                <p class="competitor-today-change price-up">
+                  <span>+</span>{{ jsonItems.data|get_asset_price_change|floatformat:2|default:"N.A." }}
+                </p>
+              </div>
+            {% else %}
+              <div class="competitor-today-change set-flex">
+                <p class="competitor-today-change price-down">
+                  {{ jsonItems.data|get_asset_price_change|floatformat:2|default:"N.A." }}
+                </p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% if seeMore %}
+      <a href="{% url 'HomePage:viewAll-view' value=industry %}"
+         class="seeMore-link">See more related Stocks</a>
+    {% endif %}
+  </div>
+{% endif %}

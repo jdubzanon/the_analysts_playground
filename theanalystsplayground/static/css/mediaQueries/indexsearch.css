@@ -1,0 +1,36 @@
+@media (max-width: 650px) {
+    table {
+        border-spacing: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+/* SEARCHBAR */
+
+@media (max-width: 500px) {
+    .search-bar-div form {
+        width: 90%;
+    }
+
+    input::placeholder {
+        color: black;
+    }
+
+    input[type="text"] {
+        font-size: 1rem;
+
+    }
+}
+
+@media (max-width: 385px) {
+    .search-bar-div form {
+        width: 100%;
+    }
+}

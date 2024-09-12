@@ -1,0 +1,48 @@
+/* .main-body-div {
+    width: 75rem;
+    height: auto;
+    margin: 0 auto;
+} */
+
+.main-div-error {
+    margin-top: 9.6rem;
+    gap: 1.2rem;
+
+}
+
+.left-image {
+    height: 30rem;
+    width: 30rem;
+}
+
+
+.error {
+    color: #e03131;
+}
+
+
+.text-modifier-small {
+    font-size: 1.4rem;
+}
+
+.text-modifier-extra-large {
+    font-size: 5rem;
+
+}
+
+@media (max-width: 560px) {
+    .main-div-error {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 450px) {
+    .text-modifier-extra-large {
+        font-size: 3.5rem;
+    }
+
+    .left-image {
+        width: 20rem;
+        height: auto;
+    }
+}

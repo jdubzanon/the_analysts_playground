@@ -1,0 +1,35 @@
+{% if data.marketType != "fx" %}
+{% if data.data.min.c == 0 %}
+<p class="data-labels">today price: <span
+              class="modify-values">{{ data.data.session.previous_close|floatformat:2 }}</span></p>
+{% else %}
+<p class="data-labels">today price: <span
+              class="modify-values">{{ data.data.session.price|floatformat:2 }}</span></p>
+{% endif %}
+
+
+
+{% with calculated_value=data|calculate_value %}
+{% if calculated_value >= 0 %}
+<p class="data-labels">Gain/Loss <span class="modify-values price-up">
+                {{ data|calculate_value|floatformat:2 }}</span></p>
+{% else %}
+<p class="data-labels">Gain/Loss <span class="modify-values price-down">
+                {{ data|calculate_value|floatformat:2 }}</span></p>
+{% endif %}
+{% endwith %}
+
+{% else %}
+<p class="data-labels">today price: <span
+              class="modify-values">{{ data.data.last_quote.ask|floatformat:3 }}</span></p>
+
+{% with calculatedForexValue=data|calculateForexValue %}
+{% if calculatedForexValue >= 0 %}
+<p class="data-labels">Gain/Loss <span class="modify-values price-up">
+                {{ data|calculateForexValue|floatformat:2 }}</span></p>
+{% else %}
+<p class="data-labels">Gain/Loss <span class="modify-values price-down">
+                {{ data|calculateForexValue|floatformat:2 }}</span></p>
+{% endif %}
+{% endwith %}
+{% endif %}

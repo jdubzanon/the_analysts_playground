@@ -1,0 +1,48 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/viewAll/viewAll_style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/tableStyle/tableStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/currencies/currency_style.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/table_style.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/forex_center.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  {% if error %}
+    <h3>Sorry an unexpected error has occured, please refresh and try again</h3>
+  {% else %}
+    {% include 'reusables/centerHeading.html' with heading='Forex' classStyle="set-flex align-flex-center header-common forex-header" %}
+    <div class="search-bar-div set-flex">{% include "Search/SearchBarTemplate.html" %}</div>
+    <div class="set-flex alpha-flex forex-main-alpha-flex">
+      <div>
+        <div class="grid alphabet-grid">
+          {% for Letter in alphabet %}
+            <div>
+              <a href="#"
+                 hx-post="{% url 'currencies:moreForexCurrencies' letter=Letter %}"
+                 hx-target="#swap-currency"
+                 class="alpha-letters">{{ Letter }}</a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div id="swap-currency" class="forex-swap-media">
+        {% include 'reusables/fxTypePlaceholder.html' with currencies=fxTypes populated=populated %}
+      </div>
+      <div id="more-items-swap" class="forex-more-items">
+        {% include 'reusables/moreItemsPlaceholder.html' with dataMap=fxMap letter=letter %}
+      </div>
+    </div>
+  {% endif %}
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/searchBarTemplate.js' %}"></script>
+  <script src="{% static 'js/scrollTop.js' %}"></script>
+{% endblock extra_jsfiles %}

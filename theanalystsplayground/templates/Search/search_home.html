@@ -1,0 +1,40 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/searchHomeStyle.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  {% if error %}
+    <div class="error-div">
+      <p class="error-msg">{{ error_msg }}</p>
+    </div>
+  {% endif %}
+  <div class="page-div container">
+    <div class="form-div ">
+      <div class="_form">
+        <form action="{% url 'search:dispatch' %}"
+              method="get"
+              class="main-search-form"
+              id="search-id"
+              hx-get="{% url 'search:_htmxGet' %}"
+              hx-target="#htmx-result"
+              hx-trigger="keyup">
+          <input name="q"
+                 type="text"
+                 class="main-search-bar"
+                 id="bar-for-search"
+                 placeholder="Search Ticker or Company Here (press enter to search)" />
+          <div id="htmx-result" class="htmx-result-class"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="/static/js/searchBarBase.js"></script>
+{% endblock extra_jsfiles %}

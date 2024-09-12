@@ -1,0 +1,62 @@
+{% if error %}
+  <h2>Sorry an error has occured please refresh and try again</h2>
+{% else %}
+  {% for news in data %}
+    <div class="individual-news-article modifier set-flex">
+      <div class="news-image-div">
+        <a href="{{ news.news_url }}" target="_blank">
+          <img src="{{ news.image_url }}"
+               alt="stock photo for news articls"
+               class="news-image" />
+        </a>
+      </div>
+      <a href="{{ news.news_url }}" class="news-text" target="_blank">{{ news.title }}</a>
+      <p class="news-text">{{ news.text }}</p>
+      <p class="news-text news-text-info">
+        Source: <span class="news-medium">{{ news.source_name }}</span>
+      </p>
+      <p class="news-text news-text-info">
+        Medium: <span class="news-medium">{{ news.type }}</span>
+      </p>
+      <p class="news-text news-text-info">
+        Publish Date: <span class="news-medium">{{ news.date }}</span>
+      </p>
+    </div>
+  {% endfor %}
+  {% if prevPage and not nextPage %}
+    <div class="news-link-wrapper special-case">
+      <a href="#"
+         class="load-more-news-link"
+         hx-post="{% url 'newsCenter:_htmxSwap' receiving_string=receivedString index_low=newIndexLow index_high=newIndexHigh page_request='prevPage' mtype=market_type %}"
+         hx-swap="innerHTML"
+         hx-target="#news-articles-id"
+         hx-trigger="click"
+         hx-push-url="true">Previous news</a>
+    </div>
+  {% endif %}
+  {% if nextPage %}
+    <div class="news-stories-nav set-flex">
+      {% if prevPage %}
+        <div class="news-link-wrapper">
+          <a href="#"
+             class="load-more-news-link"
+             hx-post="{% url 'newsCenter:_htmxSwap' receiving_string=receivedString index_low=newIndexLow index_high=newIndexHigh page_request='prevPage' mtype=market_type %}"
+             hx-swap="innerHTML"
+             hx-target="#news-articles-id"
+             hx-trigger="click"
+             hx-push-url="true">Previous news</a>
+        </div>
+      {% endif %}
+      <div class="news-link-wrapper">
+        <a href="#"
+           class="load-more-news-link"
+           hx-post="{% url 'newsCenter:_htmxSwap' receiving_string=receivedString index_low=newIndexLow index_high=newIndexHigh page_request='nextPage' mtype=market_type %}"
+           hx-swap="innerHTML"
+           hx-target="#news-articles-id"
+           hx-trigger="click"
+           hx-push-url="true">Load
+        more news</a>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}

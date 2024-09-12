@@ -1,0 +1,287 @@
+{% load static i18n %}
+
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>
+      {% block title %}
+        The Analyst's Playground
+      {% endblock title %}
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Seymour+One&display=swap"
+          rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+          rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+          rel="stylesheet" />
+    <link rel="apple-touch-icon"
+          sizes="180x180"
+          href="{% static 'images/favicons/apple-touch-icon.png' %}" />
+    <link rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="{% static 'images/favicons/favicon-32x32.png' %}" />
+    <link rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="{% static 'images/favicons/favicon-16x16.png' %}" />
+    <link rel="manifest" href="{% static 'images/favicons/site.webmanifest' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="stocks website" />
+    <meta name="author" content="siberian troll" />
+    {% block css %}
+      <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+            integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+      <link rel="stylesheet"
+            href="{% static 'css/pageOverlay/pageOverlay_style.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/base_style.css' %}" />
+      <link rel="stylesheet"
+            href="{% static 'css/generalStyles/generalStyles.css' %}" />
+      <link href="{% static 'css/project.css' %}" rel="stylesheet" />
+    {% endblock css %}
+    {% block extra_css %}
+    {% endblock extra_css %}
+    <style>
+      #htmx-general {
+        display: none;
+      }
+    </style>
+    {# Placed at the top of the document so pages load faster with defer #}
+    {% block javascript %}
+      <script defer
+              src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
+              integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
+              crossorigin="anonymous"
+              referrerpolicy="no-referrer"></script>
+      <script src="https://unpkg.com/htmx.org@1.9.4/dist/htmx.min.js"></script>
+      <script defer src="{% static 'js/project.js' %}"></script>
+    {% endblock javascript %}
+  </head>
+  <body class="{% block bodyclass %}{% endblock bodyclass %}">
+    {% block body %}
+      <div id="page-overlay"></div>
+      <section class="top-of-page container">
+        <div class="main-heading-div">
+          <div class="main-heading-left">
+            <img src="{% static 'images/logo.png' %}" alt="site-logo" class="logo" />
+            <a href="{% url 'HomePage:home-view' %}" class="main-title-link">
+              <h3 class="site-title seymour-font">The Analyst's Playground</h3>
+            </a>
+          </div>
+          <a href="#"
+             class="menu-link navigation-link seymour-font nav-link-color">
+            <div class="chev-down">
+              <p>Menu</p>
+              <p class="chev-down">
+                <ion-icon name="chevron-down-outline"></ion-icon>
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="nav-bar-div" id="nav-bar-div">
+          <nav class="nav-bar" id="nav-bar">
+            <h3>Where would you like to go?</h3>
+            {% if request.user.is_authenticated %}
+              <a href="{% url 'HomePage:user-dispatcher-view' user_id=request.user.uuid %}"
+                 class="section-styles">Home</a>
+              <a href="{% url 'dashboard_app:dashboard_view' user_id=request.user.uuid %}"
+                 class="section-styles">Dashboard</a>
+              <a href="{% url 'search:user_search' status='base' user_id=request.user.uuid %}"
+                 class="section-styles">Search</a>
+              <a href="{% url 'stockCenter:user_stockCenter_view' user_id=request.user.uuid %}"
+                 class="section-styles">Stock Center</a>
+              <a href="{% url 'newsCenter:user_newsCenter_view' user_id=request.user.uuid %}"
+                 class="section-styles">News Center</a>
+              <a href="{% url 'currencies:user_moreCryptoCurrencies' letter='A' user_id=request.user.uuid %}"
+                 class="section-styles">Crypto Center</a>
+              <a href="{% url 'currencies:user_moreForexCurrencies' letter='A' user_id=request.user.uuid %}"
+                 class="section-styles">Forex
+              Center</a>
+              <a href="{% url 'indexSearch:user_indexSearch_view' user_id=request.user.uuid %}"
+                 class="section-styles">Index Center</a>
+              <a href="{% url 'account_logout' %}" class="section-styles">Log Out</a>
+              <a href="#" class="section-styles">Account</a>
+              <a href="{% url 'commentSection:commentsView' %}" class="section-styles">Feedback</a>
+              <a href="{% url 'users:delete_user_view' %}" class="section-styles">Delete Account</a>
+              <a href="#"><ion-icon size="large" name="close-outline" class="x-icon" id="closeIcon"></ion-icon></a>
+            {% else %}
+              <a href="{% url 'HomePage:dispatcher-view' %}" class="section-styles">Home</a>
+              <a href="{% url 'search:search' status='base' %}" class="section-styles">Search</a>
+              <a href="{% url 'stockCenter:stockCenter_view' %}"
+                 class="section-styles">Stock Center</a>
+              <a href="{% url 'newsCenter:newsCenter_view' %}" class="section-styles">News Center</a>
+              <a href="{% url 'currencies:moreCryptoCurrencies' letter='A' %}"
+                 class="section-styles">Crypto Center</a>
+              <a href="{% url 'currencies:moreForexCurrencies' letter='A' %}"
+                 class="section-styles">Forex Center</a>
+              <a href="{% url 'indexSearch:indexSearch_view' %}"
+                 class="section-styles">Index Center</a>
+              <a href="{% url 'account_login' %}" class="section-styles">Log In</a>
+              <a href="{% url 'account_signup' %}" class="section-styles">Sign Up!</a>
+              <a href="{% url 'commentSection:commentsView' %}" class="section-styles">Feedback</a>
+              <a href="#" id="closeIcon"><ion-icon size="large" name="close-outline" class="x-icon"></ion-icon></a>
+            {% endif %}
+          </nav>
+        </div>
+      </section>
+      <div class="container main-body-container">
+        {% if request.user.is_authenticated %}
+          <div class="logged-in-prompt-box set-flex align-flex-start">
+            <h5>You are logged in {{ request.user.username }}</h5>
+          </div>
+        {% endif %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-dismissible {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+              {{ message }}
+              <button type="button"
+                      class="btn-close"
+                      data-bs-dismiss="alert"
+                      aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+        {% block main %}
+          {% block content %}
+          {% endblock content %}
+        {% endblock main %}
+      </div>
+      <section class="footer-margin">
+        <footer>
+          <div class="footer-style text-white">
+            <h3 class="footer-title seymour-font">The Analyst's Playground</h3>
+            <div class="set-flex site-nav-footer align-flex-spacebetween">
+              <div class="set-flex left-footer align-flex-spacebetween">
+                <div>
+                  <div class="grid">
+                    <h4>Site Navigation:</h4>
+                    {% if request.user.is_authenticated %}
+                      <h5>You are logged in {{ request.user.username }}</h5>
+                      <a href="{% url 'HomePage:user-dispatcher-view' user_id=request.user.uuid %}"" class=" text-white
+                      footer-links">Home</a>
+                      <a href="{% url 'dashboard_app:dashboard_view' user_id=request.user.uuid %}"
+                         class="text-white footer-links">Dashboard</a>
+                      <a href="{% url 'search:user_search' status='base' user_id=request.user.uuid %}"
+                         class="text-white footer-links">Search</a>
+                      <a href="{% url 'newsCenter:user_newsCenter_view' user_id=request.user.uuid %}"
+                         class="text-white footer-links">News Center</a>
+                      <a href="{% url 'stockCenter:user_stockCenter_view' user_id=request.user.uuid %}"
+                         class="text-white footer-links">Stock Center</a>
+                      <a href="{% url 'currencies:user_moreCryptoCurrencies' letter='A' user_id=request.user.uuid %}"
+                         class="text-white footer-links">Crypto Center</a>
+                      <a href="{% url 'currencies:user_moreForexCurrencies' letter='A' user_id=request.user.uuid %}"
+                         class="text-white footer-links">Forex Center</a>
+                      <a href="{% url 'indexSearch:user_indexSearch_view' user_id=request.user.uuid %}"
+                         class="text-white footer-links">Index Center</a>
+                      <a href="{% url 'account_logout' %}" class="text-white footer-links">Log Out</a>
+                      <a href="{% url 'users:delete_user_view' %}"
+                         class="text-white footer-links">Delete Account</a>
+                      <a href="{% url 'commentSection:commentsView' %}"
+                         class="text-white footer-links">Feedback</a>
+                      <a href="#" class="text-white footer-links">Top of Page</a>
+                    {% else %}
+                      <a href="{% url 'HomePage:dispatcher-view' %}"
+                         class="text-white footer-links">Home</a>
+                      <a href="{% url 'account_login' %}" class="text-white footer-links">Log In</a>
+                      <a href="{% url 'account_signup' %}" class="text-white footer-links">Sign Up</a>
+                      <a href="{% url 'search:search' status='base' %}"
+                         class="text-white footer-links">Search</a>
+                      <a href="{% url 'stockCenter:stockCenter_view' %}"
+                         class="text-white footer-links">Stock Center</a>
+                      <a href="{% url 'indexSearch:indexSearch_view' %}"
+                         class="text-white footer-links">Index Center</a>
+                      <a href="{% url 'currencies:moreCryptoCurrencies' letter='A' %}"
+                         class="text-white footer-links">Crypto Center</a>
+                      <a href="{% url 'currencies:moreForexCurrencies' letter='A' %}"
+                         class="text-white footer-links">Forex Center</a>
+                      <a href="{% url 'newsCenter:newsCenter_view' %}"
+                         class="text-white footer-links">News Center</a>
+                      <a href="{% url 'commentSection:commentsView' %}"
+                         class="text-white footer-links">Feedback</a>
+                      <a href="#" class="text-white footer-links">Top of Page</a>
+                    {% endif %}
+                  </div>
+                </div>
+                <div>
+                  <div class="grid grid-gap">
+                    <h4>About This Site:</h4>
+                    <a href="{% url 'HomePage:aboutMeView' %}"
+                       class="text-white footer-links">Who Built This Website? (About Me)</a>
+                    <a href="https://polygon.io/"
+                       target="_blank"
+                       class="text-white footer-links">My Stock Market API</a>
+                    <a href="https://stocknewsapi.com/"
+                       target="_blank"
+                       class="text-white footer-links">My Stock News API</a>
+                    <a href="https://cryptonews-api.com/"
+                       target="_blank"
+                       class="text-white footer-links">My Crytpo News API</a>
+                  </div>
+                </div>
+              </div>
+              <div class="set-flex right-footer align-flex-spacebetween">
+                <div>
+                  <div class="grid grid-vertical-align-start grid-gap">
+                    <h4>Shout Outs:</h4>
+                    <a href="https://www.youtube.com/@reelycoding"
+                       target="_blank"
+                       class="text-white footer-links">ReelyCoding (Helped me throughout website)</a>
+                    <a href="https://chatgpt.com/"
+                       target="_blank"
+                       class="text-white footer-links">The True Master Of Programming</a>
+                  </div>
+                </div>
+                <div>
+                  <h5>Not sure why you would want to but:</h5>
+                  <a href="mailto:thorntonbill343@gmail.com"
+                     class="text-white footer-links">Email Me Here</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </section>
+    {% endblock body %}
+    {% block modal %}
+    {% endblock modal %}
+    {% block inline_javascript %}
+      {% comment %}
+  Script tags with only code, no src (defer by default). To run
+  with a "defer" so that you run inline code:
+  <script>
+    // window.addEventListener('DOMContentLoaded', () => {
+
+    // });
+  </script>
+      {% endcomment %}
+    {% endblock inline_javascript %}
+    <script type="module"
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  </body>
+  <script>
+    document.body.addEventListener("htmx:configRequest", (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+  </script>
+  <script>
+    window.addEventListener("pageshow", function() {
+      const overlay = document.getElementById("page-overlay")
+      if (overlay.style.display == "block") {
+        overlay.style.display = "none"
+      }
+    })
+  </script>
+  <script src="{% static 'js/base.js' %}"></script>
+  {% block extra_jsfiles %}
+  {% endblock extra_jsfiles %}
+</html>

@@ -1,0 +1,34 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/viewAll/viewAll_style.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/indexsearch.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  {% include 'reusables/centerHeading.html' with heading='Indices' classStyle="set-flex align-flex-center header-common indices-header" %}
+  <div class="search-bar-div set-flex">{% include "Search/SearchBarTemplate.html" %}</div>
+  <div class="set-flex align-flex-spacearound flex-main">
+    <div>
+      <div class="grid flex-left-side">
+        {% for index in list_of_indices %}
+          <a href="#"
+             hx-post="{% url 'indexSearch:htmxIndexCategoryLinkClick' name=index page_requested='firstPage' index_low=0 index_high=50 %}"
+             hx-target="#results-swap"
+             onclick="return false;"
+             class="link-decoration">{{ index }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <div id="results-swap" class="flex-right-side">
+      {% include 'reusables/indexResultsPlaceholder.html' with data=allData %}
+    </div>
+  </div>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/searchBarTemplate.js' %}"></script>
+{% endblock extra_jsfiles %}

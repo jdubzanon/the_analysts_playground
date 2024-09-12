@@ -1,0 +1,125 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/etfSearchStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/generalSearchResultStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/search_result.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <div class="search-bar-div set-flex">{% include "Search/SearchBarTemplate.html" %}</div>
+  <section class="top-half">
+    <div class="chart-with-info ">
+      <section class="price-section">
+        <h5 class="etf-h5">Exchange Traded Fund</h5>
+        <div class="set-flex gap-large price-section-main">
+          <p class="text-modifier-large weight-modifier">{{ ticker }}</p>
+          <div>
+            <p class="text-modifier-large">{{ snapshot|get_asset_price|floatformat:2|default:"N.A." }}</p>
+            <div class="set-flex gap-small">
+              {% if snapshot|get_asset_price_change|default:0 >= 0 %}
+                <p class="text-modifier-med price-up">{{ snapshot|get_asset_price_change|floatformat:2|default:"N.A." }}</p>
+                <p class="text-modifier-med price-up">{{ snapshot|get_asset_percent_change|floatformat:2|default:"N.A." }}%</p>
+              {% else %}
+                <p class="text-modifier-med price-down">{{ snapshot|get_asset_price_change|floatformat:2|default:"N.A." }}</p>
+                <p class="text-modifier-med price-down">{{ snapshot|get_asset_percent_change|floatformat:2|default:"N.A." }}%</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4>{{ etf_name }}</h4>
+        </div>
+      </section>
+      <section>
+        <div class=" stock-chart-frame" id="stock-chart-switch">
+          {% include "reusables/chartPlaceholder.html" with chart=chart current_ticker=ticker %}
+          <div class="market-status-main set-flex">
+            {% if market_status == "open" %}
+              <p class="info-text info-text-modifier">Market Status</p>
+              <p class="info-text-modifier open">{{ market_status|upper }}</p>
+            {% elif market_status == "closed" %}
+              <p class="info-text info-text-modifier">Market Status</p>
+              <p class="info-text-modifier closed">{{ market_status|upper }}</p>
+            {% else %}
+              <p class="info-text info-text-modifier">Market Status</p>
+              <p class="other-status-market info-text-modifier">{{ market_status|upper }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+  <!-- SECTION-2 START -->
+  <section class="metrics-section">
+    <div class="section-2 set-flex">
+      <div class="metrics flex-side-1">
+        <div class="addition-wrapper-for-heading">
+          <h2 class="additional-info-header">Metrics</h2>
+          <div class="additional-info grid">
+            <div>
+              <div class="info-box set-flex">
+                <p class="info-text">Current Market Cap:</p>
+                <p class="info-text info-text-modifier">{{ market_cap }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">52 week high:</p>
+                <p class="info-text info-text-modifier">{{ 52_week_high|floatformat:2 }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">52 week low:</p>
+                <p class="info-text info-text-modifier">{{ 52_week_low|floatformat:2 }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">Previous Close:</p>
+                <p class="info-text info-text-modifier">{{ prev_close }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">Current Volume:</p>
+                <p class="info-text info-text-modifier">{{ current_volume }}</p>
+              </div>
+            </div>
+            <div>
+              <div class="info-box set-flex">
+                <p class="info-text">Last Dividend Payment Amount:</p>
+                <p class="info-text info-text-modifier">{{ last_div_payment|floatformat:2|default:"N/A" }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">Lasy Year Total Dividend Payout:</p>
+                <p class="info-text info-text-modifier">{{ last_yr_div_total|floatformat:2|default:"N/A" }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">Last Dividend Payout Date:</p>
+                <p class="info-text info-text-modifier">{{ last_div_pay_date|default:"N/A" }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">Dividend Payout Frequency:</p>
+                <p class="info-text info-text-modifier">{{ dividend_freq|default:"N/A" }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">SharesOustanding:</p>
+                <p class="info-text info-text-modifier">{{ shares_outstanding }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-side-2">
+        {% include 'reusables/actionsPlaceholder.html' with in_watchlist=in_watchlist tickerType=tickerType template='ETF' %}
+      </div>
+    </div>
+  </section>
+  <!-- NEWS SECTION  -->
+  <section class="bottom-news-section">
+    {% include 'reusables/newsTemplate.html' with all_news=all_news template="searchResult" ticker=ticker %}
+  </section>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/searchBarTemplate.js' %}"></script>
+  <script src="{% static 'js/actions.js' %}"></script>
+{% endblock extra_jsfiles %}

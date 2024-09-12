@@ -1,0 +1,92 @@
+To achieve the desired behavior of automatically scrolling to the top of the table results when the next or previous links are clicked, you can use HTMX's hx-on attribute to trigger a JavaScript function that scrolls the table to the top after the content is updated.
+
+Here’s a step-by-step solution:
+
+Add an ID to the Table Element: Give your table element an ID so that you can easily select it with JavaScript.
+
+Use HTMX's hx-on Attribute: Use the hx-on attribute to listen for the htmx:afterSettle event, which is triggered after HTMX has updated the content.
+
+Scroll to the Top: Use JavaScript to scroll the table to the top when the event is triggered.
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scrollable Table with HTMX</title>
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+    <style>
+        .swap-div {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 6px 20px rgba(0, 0, 0, 0.4);
+            padding: 2rem;
+            max-height: 70vh;
+            overflow-y: auto; /* Enable vertical scrollbar if content overflows */
+        }
+        table {
+            border-collapse: separate; /* Ensure border-spacing is applied */
+            border-spacing: 1rem; /* Add spacing between cells */
+            width: 100%; /* Ensure table takes full width */
+            margin: 1rem 0; /* Add some margin for spacing */
+        }
+        th, td {
+            border: 1px solid #ddd; /* Add a border to cells for better visibility */
+            padding: 0.5rem; /* Add padding inside cells */
+            text-align: left; /* Align text to the left */
+        }
+        th {
+            background-color: #f2f2f2; /* Add a background color to header cells */
+        }
+        caption {
+            font-size: 1.2rem; /* Increase caption font size */
+            font-weight: bold; /* Make caption bold */
+            margin-bottom: 0.5rem; /* Add margin below caption */
+        }
+    </style>
+</head>
+<body>
+    <div class="swap-div" id="results-container" hx-on="htmx:afterSettle: scrollToTop()">
+        <table>
+          {% if totalMatches %}
+          <caption>
+            Matching {{indexLow}} to {{ indexHigh }} of {{ totalMatches }} for {{ searchString|title }}
+          </caption>
+          {% endif %}
+          <thead>
+            <tr>
+              <th scope="col">Ticker</th>
+              <th scope="col">Name</th>
+              <th scope="col">Current Price</th>
+              <th scope="col">Price Change</th>
+              <th scope="col">Percent Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for key, value in allData.items %}
+            <tr>
+              <th scope="row"><a href="{% url 'search:htmxLinkDispatch' ticker_id=value.ticker mType='indices' %}">{{ value.ticker }}</a></th>
+              <td>{{value.data.name}}</td>
+              <td align="center">{{value.data.value|floatformat:2|default:"N.A."}}</td>
+              <td align="center">{{value.data|getAssetPriceChangeSpecialCase|floatformat:2|default:"N.A."}}</td>
+              <td align="center">{{value.data|getAssetPercentChangeSpecialCase|floatformat:2|default:"N.A."}}%</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    <button hx-get="/next-page-url" hx-target="#results-container">Next</button>
+    <button hx-get="/previous-page-url" hx-target="#results-container">Previous</button>
+
+    <script>
+        function scrollToTop() {
+            document.getElementById('results-container').scrollTop = 0;
+        }
+    </script>
+</body>
+</html>
+
+
+Explanation:
+HTMX Library: The htmx script is included for HTMX functionality.
+Scrollable Div: The .swap-div class is applied to a div element with the ID results-container, which wraps the table and handles scrolling.
+HTMX Event Handling: The hx-on attribute is used to call the scrollToTop() function when the htmx:afterSettle event is triggered.
+Scroll to Top Function: The scrollToTop() function sets the scrollTop property of the results-container div to 0, scrolling it to the top.
+HTMX Links: The Next and Previous buttons use hx-get to fetch the next or previous set of results and update the #results-container div with the new content.
+With this setup, whenever the Next or Previous button is clicked, the table will be updated, and the scroll position will be reset to the top.

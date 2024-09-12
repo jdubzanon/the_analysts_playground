@@ -1,0 +1,129 @@
+.page-placeholder{
+    height: 50rem;
+
+}
+
+.user-form-div {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  /* border: 2px solid black; */
+}
+
+.user-form{
+    padding: 7.2rem 7.2rem;
+    background-color: #d3f9d8;
+
+}
+
+.username-class{
+    height: 2.4rem;
+}
+.password-class{
+    height: 2.4rem;
+}
+
+.username-div{
+    padding-bottom: 1.2rem;
+}
+
+.password-div{
+    padding-bottom: 1.2rem;
+}
+
+.user-submit-button{
+    /* font-size: 1.2rem; */
+    padding: 0.25rem 0.25rem;
+}
+
+
+form label{
+    font-size: 1.6rem;
+}
+.button-div{
+    padding-top: 1.2rem;
+}
+
+.prompt-div{
+    padding-top: 1.2rem;
+    font-size: 1.4rem;
+}
+
+/* ###############
+SIGN UP PAGE
+####################*/
+
+.sign-up-div{
+    display: flex;
+    justify-content: center;
+}
+
+
+.requirements-div{
+    display: flex;
+    justify-content: center;
+}
+
+.user-name-requirements{
+    padding-bottom: 1.2rem;
+}
+
+.password-requirements{
+    font-size: 1.2rem;
+    padding-top: 1.2rem;
+}
+
+.errors-div{
+    padding: 0 2.4rem;
+    font-size: 1.4rem;
+
+}
+.error{
+    padding: 1.2rem;
+    color: red;
+}
+
+/* ##########
+LOGOUT PAGE
+#############*/
+
+.logout-prompt-div{
+    height: 20rem;
+    /* border: 2px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.log-back-in{
+    font-size: 1.4rem;
+
+}
+
+
+/* ############### */
+/* IS_AUTHED.HTML */
+/* ############## */
+
+.msg-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 9.6rem;
+
+}
+
+.logout-prompt{
+    font-size: 1.8rem;
+}
+
+.msg-text{
+    font-size: 3.2rem;
+}

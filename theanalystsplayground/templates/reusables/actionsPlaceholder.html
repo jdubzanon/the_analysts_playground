@@ -1,0 +1,94 @@
+{% load custom_filters %}
+{% load static %}
+
+<div class="actions">
+  <div class="actions-div set-flex">
+    <a href="#" class="actions-link-main">Actions</a>
+    <a href="#" class="caret-down-link"><ion-icon class="caret-down" name="caret-down-outline"></ion-icon></a>
+    <div id="watchlist-prompt"></div>
+  </div>
+  <div class="action-links grid">
+    {% if template == "stocks" %}
+      {% if in_watchlist %}
+        <a href="#"
+           class="individual-action-link add-watchlist full-width"
+           hx-post="{% url 'search:_addRemoveWatchlist' ticker_id=ticker mtype=market_type %}"
+           hx-swap="true">Remove from watchlist</a>
+      {% else %}
+        <a href="#"
+           class="individual-action-link add-watchlist full-width"
+           hx-post="{% url 'search:_addRemoveWatchlist' ticker_id=ticker mtype=market_type %}"
+           hx-swap="true">Add to watchlist</a>
+      {% endif %}
+      {% if in_database %}
+        <a href="#"
+           class="individual-action-link show-competitors"
+           hx-post="{% url 'search:_htmxCompetitors' ticker_id=ticker %}"
+           hx-target="#competitor-swap"
+           id="related-stocks">Related Stocks</a>
+        <div id="competitor-swap"></div>
+      {% endif %}
+      <a href="#"
+         class="individual-action-link company-info connected-links"
+         hx-target="#company-info-swap"
+         hx-post="{% url 'search:_htmxCompanySwap' ticker_id=ticker %}">Company Info</a>
+      <div id="company-info-swap"></div>
+      {% if cik_string %}
+        <a href="{{ secURL }}"
+           class="individual-action-link sec-url"
+           target="_blank">SEC website</a>
+      {% endif %}
+      {% if in_database %}
+        <a href="#"
+           class="individual-action-link financialsSummary"
+           hx-get="{% url 'search:getFinancials' ticker_id=ticker %}"
+           hx-target="#financials-target"
+           hx-trigger="click"
+           hx-indicator="#spinner">FinancialsSummary
+          <img src="{% static 'images/Fidget-spinner.gif' %}"
+               alt="Loading..."
+               class="htmx-indicator"
+               id="spinner" />
+        </a>
+      {% endif %}
+    {% elif template == "index" %}
+      {% if in_watchlist %}
+        <a href="#"
+           class="individual-action-link add-watchlist full-width"
+           hx-post="{% url 'search:_addRemoveWatchlist' ticker_id=ticker mtype=market_type %}"
+           hx-swap="true">Remove from watchlist</a>
+      {% else %}
+        <a href="#"
+           class="individual-action-link add-watchlist full-width"
+           hx-post="{% url 'search:_addRemoveWatchlist' ticker_id=ticker mtype=market_type %}"
+           hx-swap="true">Add to watchlist</a>
+      {% endif %}
+      {% with indicesName=indexName|name_check_and_fix %}
+        <a href="#"
+           class="individual-action-link show-competitors"
+           hx-post="{% url 'indexSearch:htmxRelatedIndices' company_name=indicesName page_requested='firstPage' index_low=0 index_high=6 %}"
+           hx-target="#index-swap"
+           id="related-stocks">Related Indices</a>
+        <div id="index-swap"></div>
+      {% endwith %}
+    {% elif template == "ETF" %}
+      {% if in_watchlist %}
+        <a href="#"
+           class="individual-action-link add-watchlist full-width"
+           hx-post="{% url 'search:_addRemoveWatchlist' ticker_id=ticker mtype=market_type %}"
+           hx-swap="true">Remove from watchlist</a>
+      {% else %}
+        <a href="#"
+           class="individual-action-link add-watchlist full-width"
+           hx-post="{% url 'search:_addRemoveWatchlist' ticker_id=ticker mtype=market_type %}"
+           hx-swap="true">Add to watchlist</a>
+      {% endif %}
+      <a href="#"
+         class="individual-action-link show-competitors"
+         hx-post="{% url 'indexSearch:htmxRelatedEtf' company_name=etf_name page_requested='first_page' index_low=0 index_high=6 ticker_type=ticker_type %}"
+         hx-target="#index-swap"
+         id="related-stocks">Related ETF's</a>
+      <div id="index-swap"></div>
+    {% endif %}
+  </div>
+</div>

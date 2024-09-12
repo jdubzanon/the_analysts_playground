@@ -1,0 +1,50 @@
+@media (max-width: 1000px) {
+    .alpha-flex {
+        justify-content: flex-start;
+        gap: 12rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .alpha-flex {
+        gap: 6rem;
+        max-width: 100%;
+    }
+
+
+    #swap-content {
+        overflow-x: scroll;
+    }
+
+}
+
+@media (max-width: 570px) {
+    .alpha-grid {
+        padding: 0 1.2rem;
+    }
+}
+
+
+
+
+/* Searchbar controls */
+@media (max-width: 500px) {
+    .search-bar-div form {
+        min-width: 90%;
+    }
+}
+
+@media (max-width: 450px) {
+    .search-bar-div form {
+        min-width: 100%;
+    }
+
+    input::placeholder {
+        color: black;
+    }
+
+    input[type="text"] {
+        font-size: 1rem;
+
+    }
+}

@@ -1,0 +1,140 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/currencySearchStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/generalSearchResultStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/search_result.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <section class="search-bar-section">
+    <div class="search-bar-div set-flex">{% include "Search/SearchBarTemplate.html" %}</div>
+  </section>
+  <section class="price-section">
+    <h5 class="forex-h5">FOREX</h5>
+    <div class="set-flex gap-large price-section-main currency-price-section">
+      <p class="text-modifier-large weight-modifier">{{ ticker }}</p>
+      <div>
+        {% if session %}
+          <p class="text-modifier-large">{{ snapshot|forex_price_alternative|floatformat:3|default:"N.A." }}</p>
+          <div class="set-flex gap-small">
+            {% if snapshot|forex_price_change_alternative|default:0 >= 0 %}
+              <p class="text-modifier-med price-up">{{ snapshot|forex_price_change_alternative|floatformat:3|default:"N.A." }}</p>
+              <p class="text-modifier-med price-up">
+                {{ snapshot|forex_percent_change_alternative|floatformat:3|default:"N.A." }}%
+              </p>
+            {% else %}
+              <p class="text-modifier-med price-down">{{ snapshot|forex_price_change_alternative|floatformat:3|default:"N.A." }}</p>
+              <p class="text-modifier-med price-down">
+                {{ snapshot|forex_percent_change_alternative|floatformat:3|default:"N.A." }}%
+              </p>
+            {% endif %}
+          </div>
+        {% else %}
+          <p class="text-modifier-large">{{ snapshot|get_asset_price|floatformat:3|default:"N.A." }}</p>
+          <div class="set-flex gap-small">
+            {% if snapshot|get_asset_percent_change|default:0 >= 0 %}
+              <p class="text-modifier-med price-up">{{ snapshot|get_asset_price_change|floatformat:3|default:"N.A." }}</p>
+              <p class="text-modifier-med price-up">{{ snapshot|get_asset_percent_change|floatformat:3|default:"N.A." }}%</p>
+            {% else %}
+              <p class="text-modifier-med price-down">{{ snapshot|get_asset_price_change|floatformat:3|default:"N.A." }}</p>
+              <p class="text-modifier-med price-down">{{ snapshot|get_asset_percent_change|floatformat:3|default:"N.A." }}%</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+      <div>
+        {% if in_watchlist %}
+          <a href="#"
+             class="individual-action-link add-watchlist full-width currency-watchlist-link"
+             hx-post="{% url 'search:_addRemoveWatchlist' ticker_id=ticker mtype=market_type %}"
+             hx-swap="true"
+             onclick="return false;">Remove from watchlist</a>
+        {% else %}
+          <a href="#"
+             class="individual-action-link add-watchlist full-width currency-watchlist-link"
+             hx-post="{% url 'search:_addRemoveWatchlist' ticker_id=ticker mtype=market_type %}"
+             hx-swap="true"
+             onclick="return false;">Add to watchlist</a>
+        {% endif %}
+      </div>
+    </div>
+    <div>
+      <h4>{{ name }}</h4>
+    </div>
+  </section>
+  <section class="additionalInformation-section">
+    <div class="set-flex additionalInfo-crypto">
+      <div class="highs-and-lows-div forex-highs-and-lows-div">
+        <p class="additionalHeading">More Info</p>
+        <p class="prompt ">
+          52 Week High: <span class="value">{{ fiftyTwoHigh|floatformat:2|default:"N.A." }}</span>
+        </p>
+        <p class="prompt ">
+          52 Week Low: <span class="value">{{ fiftyTwoLow|floatformat:2|default:"N.A." }}</span>
+        </p>
+        {% if session %}
+          <p class="prompt ">
+            Previous Close: <span class="value">{{ snapshot.session.previous_close|floatformat:2|default:"N.A." }}</span>
+          </p>
+        {% else %}
+          <p class="prompt ">
+            Previous Close: <span class="value">{{ snapshot.prevDay.c|floatformat:2|default:"N.A." }}</span>
+          </p>
+        {% endif %}
+      </div>
+      <div class="box-div forex-box-div">
+        <h5>Last Quote</h5>
+        <p class="prompt">
+          Ask: <span class="value">{{ snapshot|last_quote_ask|floatformat:3|default:"unavailable" }}</span>
+        </p>
+        <p class="prompt">
+          Bid: <span class="value">{{ snapshot|last_quote_bid|floatformat:3|default:"unavailable" }}</span>
+        </p>
+        <p class="prompt">
+          Time: <span class="value">{{ timestamp|timestamp_converter }}</span>
+        </p>
+      </div>
+      <div class="conversion-div">
+        <p class="additionalHeading">Conversion</p>
+        <p class="forex-prompt prompt set-flex align-flex-spacebetween">
+          Per Each: <span class="value">1.00</span>
+        </p>
+        <p class="forex-prompt prompt set-flex align-flex-spacebetween">
+          From: <span class="value">{{ convertedCurrency.from }}</span>
+        </p>
+        <p class="forex-prompt prompt set-flex align-flex-spacebetween">
+          To: <span class="value">{{ convertedCurrency.to }}</span>
+        </p>
+        <p class="forex-prompt prompt set-flex align-flex-spacebetween">
+          Worth: <span class="value">{{ convertedCurrency.converted }}</span>
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="chart-section">
+    <div class="stock-chart-frame" id="stock-chart-switch">
+      {% include "reusables/chartPlaceholder.html" with chart=chart current_ticker=nonPublicTicker %}
+      <div class="market-status-main set-flex">
+        {% if market_status == "open" %}
+          <p class="info-text info-text-modifier">Market Status</p>
+          <p class="info-text-modifier open">{{ market_status|upper }}</p>
+        {% elif market_status == "closed" %}
+          <p class="info-text info-text-modifier">Market Status</p>
+          <p class="info-text-modifier closed">{{ market_status|upper }}</p>
+        {% else %}
+          <p class="info-text info-text-modifier">Market Status</p>
+          <p class="other-status-market info-text-modifier">{{ market_status|upper }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/searchBarTemplate.js' %}"></script>
+{% endblock extra_jsfiles %}

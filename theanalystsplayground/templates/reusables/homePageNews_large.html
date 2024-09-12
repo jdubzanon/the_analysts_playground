@@ -1,0 +1,32 @@
+<div>
+  <div class="most-recent set-flex">
+    {% for mostRecentCrypto in recentNews|slice:":1" %}
+      <a href="{{ mostRecentCrypto.news_url }}" target="_blank">
+        <img src="{{ mostRecentCrypto.image_url }}"
+             alt="stock photo large"
+             class="news-image-large bend-corners" />
+      </a>
+      <div>
+        <a href="{{ mostRecentCrypto.news_url }}"
+           class="news-title-large"
+           target="_blank">{{ mostRecentCrypto.title }}</a>
+        <p class="news-description-large">{{ mostRecentCrypto.text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+<div class="set-flex align-flex-center">
+  <h3 class="more-stories-header">More {{ type }} Market Stories</h3>
+</div>
+<div class="grid grid--3--columns more-stories border-green bend-corners">
+  {% for additionalStory in recentNews|slice:"1:" %}
+    <div>
+      <img src="{{ additionalStory.image_url }}"
+           alt="stock-photo"
+           class="news-image-small bend-corners" />
+      <a href="{{ additionalStory.news_url }}"
+         class="news-title-small"
+         target="_blank">{{ additionalStory.title }}</a>
+    </div>
+  {% endfor %}
+</div>

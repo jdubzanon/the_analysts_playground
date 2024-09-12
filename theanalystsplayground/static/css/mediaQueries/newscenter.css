@@ -1,0 +1,89 @@
+@media (max-width: 850px) {
+    .sources-box {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 800px) {
+    .news-articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+    .quick-details {
+        right: 1%;
+    }
+}
+
+
+@media (max-width: 660px) {
+    .quick-details {
+        width: 20rem;
+    }
+
+    .quick-details-spacing {
+        width: 100%;
+    }
+}
+
+@media (max-width: 550px) {
+    .quick-details {
+        position: static;
+        margin-top: 1.2rem;
+    }
+}
+
+@media (max-width: 455px) {
+
+    .source-field-set {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    label {
+        font-size: 1.4rem;
+    }
+
+    .ticker-input-label,
+    .ticker-input-box {
+        margin-top: 1rem;
+        margin-bottom: 1.4rem;
+    }
+
+    input[type="text"] {
+        font-size: 1.6rem;
+    }
+
+    .source-field-set-wrapper {
+        margin-top: 1.4rem;
+    }
+
+    .source-field-set-wrapper legend {
+        font-size: 1.6rem;
+        font-weight: 600;
+
+    }
+
+    .news-articles-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+
+}
+
+@media (max-width: 410px) {
+    h2 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 385px) {
+    .ticker-input-box {
+        margin-left: 1.2rem;
+    }
+
+    .ticker-input-label,
+    .ticker-input-label {
+        margin-bottom: 0;
+    }
+}

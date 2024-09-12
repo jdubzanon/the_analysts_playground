@@ -1,0 +1,103 @@
+<section>
+  <div class="news-section-div">
+    <div class="news-heading-div set-flex">
+      {% if template == "newsCenter" and requestCheck == True %}
+        {% if infoDataTicker %}
+          <h2>News Matching {{ infoDataTicker }} and Filters</h2>
+        {% elif not infoDataTicker %}
+          <h2>Matching General News Filters</h2>
+        {% else %}
+          <h2>News Matching Filters</h2>
+        {% endif %}
+      {% elif template == "searchResult" %}
+        <h2 class="news-heading">{{ ticker }} RELATED NEWS</h2>
+      {% elif template == "defaultDisplay" %}
+        <h2 class="news-heading">Recent News Stories</h2>
+      {% endif %}
+    </div>
+    <div class="news-articles-grid grid grid--3--columns"
+         id="news-articles-id">
+      {% if template == "searchResult" %}
+        {% for news in all_news.data|slice:":21" %}
+          <div class="individual-news-article modifier set-flex">
+            <div class="news-image-div">
+              <a href="{{ news.news_url }}" target="_blank">
+                <img src="{{ news.image_url }}"
+                     alt="stock photo for news articls"
+                     class="news-image" />
+              </a>
+            </div>
+            <a href="{{ news.news_url }}" class="news-text" target="_blank">{{ news.title }}</a>
+            <p class="news-text">{{ news.text }}</p>
+            <p class="news-text news-text-info">
+              Source: <span class="news-medium">{{ news.source_name }}</span>
+            </p>
+            <p class="news-text news-text-info">
+              Medium: <span class="news-medium">{{ news.type }}</span>
+            </p>
+            <p class="news-text news-text-info">
+              Publish Date: <span class="news-medium">{{ news.date }}</span>
+            </p>
+          </div>
+        {% endfor %}
+      {% elif template == "newsCenter" %}
+        {% for news in newsData %}
+          <div class="individual-news-article modifier set-flex">
+            <div class="news-image-div">
+              <a href="{{ news.news_url }}" target="_blank">
+                <img src="{{ news.image_url }}"
+                     alt="stock photo for news articls"
+                     class="news-image" />
+              </a>
+            </div>
+            <a href="{{ news.news_url }}" class="news-text" target="_blank">{{ news.title }}</a>
+            <p class="news-text">{{ news.text }}</p>
+            <p class="news-text news-text-info">
+              Source: <span class="news-medium">{{ news.source_name }}</span>
+            </p>
+            <p class="news-text news-text-info">
+              Medium: <span class="news-medium">{{ news.type }}</span>
+            </p>
+            <p class="news-text news-text-info">
+              Publish Date: <span class="news-medium">{{ news.date }}</span>
+            </p>
+          </div>
+        {% endfor %}
+      {% elif template == "defaultDisplay" %}
+        {% for news in newsDataDefault %}
+          <div class="individual-news-article modifier set-flex">
+            <div class="news-image-div">
+              <a href="{{ news.news_url }}" target="_blank">
+                <img src="{{ news.image_url }}"
+                     alt="stock photo for news articls"
+                     class="news-image" />
+              </a>
+            </div>
+            <a href="{{ news.news_url }}" class="news-text" target="_blank">{{ news.title }}</a>
+            <p class="news-text">{{ news.text }}</p>
+            <p class="news-text news-text-info">
+              Source: <span class="news-medium">{{ news.source_name }}</span>
+            </p>
+            <p class="news-text news-text-info">
+              Medium: <span class="news-medium">{{ news.type }}</span>
+            </p>
+            <p class="news-text news-text-info">
+              Publish Date: <span class="news-medium">{{ news.date }}</span>
+            </p>
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% if nextPage %}
+        <div class="news-link-wrapper">
+          <a href="#"
+             class="load-more-news-link"
+             hx-post="{% url 'newsCenter:_htmxSwap' receiving_string=passing_string index_low=passedLow index_high=passedHigh page_request='nextPage' mtype=market_type %}"
+             hx-swap="innerHTML"
+             hx-target="#news-articles-id"
+             hx-trigger="click"
+             hx-push-url="true">Load more news</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

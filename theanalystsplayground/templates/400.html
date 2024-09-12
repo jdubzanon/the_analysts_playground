@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/requestErrors/errorStyles.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <div class="main-body-div">
+    <div class="main-div-error set-flex align-flex-center vertical-align-center">
+      <img src="{% static 'images/requestErrors/400_error4.jpeg' %}"
+           alt="wall street analyst holding a 400 error bad request sign"
+           class="left-image bend-corners" />
+      <p class="text-modifier-extra-large">
+        {% if exception %}
+          {{ exception }}
+        {% else %}
+          400 <span class="error"> Error
+          <br />
+        </span> (Bad Request)
+      {% endif %}
+    </p>
+  </div>
+</div>
+{% endblock content %}

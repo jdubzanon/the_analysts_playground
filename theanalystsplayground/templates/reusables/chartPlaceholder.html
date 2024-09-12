@@ -1,0 +1,40 @@
+<!-- relative to the div class=stock-chart-frame -->
+{% if chart == "error" %}
+  {% include "reusables/bad_request_template.html" %}
+{% else %}
+  {{ chart|safe }}
+  <div class="links-div">
+    <div class="set-flex chart-links">
+      <a href="#"
+         class="line-chart-link chart-link"
+         hx-get="{% url 'search:_htmxChartSwitch' time_frame='oneWeek' ticker=current_ticker %}"
+         hx-target="#stock-chart-switch"
+         hx-trigger="click"
+         onclick="return false;">OneWeek</a>
+      <a href="#"
+         class="OHLC-link chart-link"
+         hx-get="{% url 'search:_htmxChartSwitch' time_frame='threeMos' ticker=current_ticker %}"
+         hx-target="#stock-chart-switch"
+         hx-trigger="click"
+         onclick="return false;">3month</a>
+      <a href="#"
+         class="candle-stick-link chart-link"
+         hx-get="{% url 'search:_htmxChartSwitch' time_frame='sixMos' ticker=current_ticker %}"
+         hx-target="#stock-chart-switch"
+         hx-trigger="click"
+         onclick="return false;">6month</a>
+      <a href="#"
+         class="candle-stick-link chart-link"
+         hx-get="{% url 'search:_htmxChartSwitch' time_frame='oneYr' ticker=current_ticker %}"
+         hx-target="#stock-chart-switch"
+         hx-trigger="click"
+         on_click="return false;">1Yr</a>
+      <a href="#"
+         class="candle-stick-link chart-link"
+         hx-get="{% url 'search:_htmxChartSwitch' time_frame='threeYr' ticker=current_ticker %}"
+         hx-target="#stock-chart-switch"
+         hx-trigger="click"
+         onclick="return false;">3Yr</a>
+    </div>
+  </div>
+{% endif %}

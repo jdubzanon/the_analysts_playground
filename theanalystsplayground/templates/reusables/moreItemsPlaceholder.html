@@ -1,0 +1,61 @@
+{% load custom_filters %}
+
+{% if error %}
+  <h3>Sorry an error occurred please refresh and try again</h3>
+{% else %}
+  <div class="matching-div forex-media-q">
+    <div class="set-flex align-flex-center main-header-div forex-table-header bend-corners">
+      <h2 class="industry-header">Matching {{ letter }}'s</h2>
+    </div>
+    <div>
+      <table class="table-custom-space forex-table-media">
+        <thead>
+          <th scope="col">Ticker</th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Price Change</th>
+          <th scope="col">Percent Change</th>
+        </thead>
+        <tbody>
+          {% for key,value in dataMap.items %}
+            <tr>
+              <th scope="row">
+                <a href="{% url 'search:htmxLinkDispatch' mtype=value.market_type ticker_id=value.ticker %}"
+                   class="matches">{{ value.ticker }}</a>
+              </th>
+              <td class="td-company-name">{{ value.company_name }}</td>
+              {% if any_of %}
+                <td class="td-price ">{{ value.data|forex_price_alternative|floatformat:2|default:"N.A" }}</td>
+                {% if value.data|forex_price_change_alternative|default:0 >= 0 %}
+                  <td class="td-price-change price-up">{{ value.data|forex_price_change_alternative|floatformat:6|default:"N.A." }}</td>
+                  <td class="td-percent-change price-up">
+                    {{ value.data|forex_percent_change_alternative|floatformat:6|default:"N.A." }}%
+                  </td>
+                {% else %}
+                  <td class="td-price-change price-down">
+                    {{ value.data|forex_price_change_alternative|floatformat:6|default:"N.A." }}
+                  </td>
+                  <td class="td-percent-change price-down">
+                    {{ value.data|forex_percent_change_alternative|floatformat:6|default:"N.A." }}%
+                  </td>
+                {% endif %}
+              {% else %}
+                <td class="td-price ">{{ value.data|get_asset_price|floatformat:2|default:"N.A" }}</td>
+                {% if value.data|get_asset_price_change|default:0 >= 0 %}
+                  <td class="td-price-change price-up">{{ value.data|get_asset_price_change|floatformat:6|default:"N.A." }}</td>
+                  <td class="td-percent-change price-up">{{ value.data|get_asset_percent_change|floatformat:6|default:"N.A." }}%</td>
+                {% else %}
+                  <td class="td-price-change price-down">{{ value.data|get_asset_price_change|floatformat:6|default:"N.A." }}</td>
+                  <td class="td-percent-change price-down">{{ value.data|get_asset_percent_change|floatformat:6|default:"N.A." }}%</td>
+                {% endif %}
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="#"
+         onClick="scrollToTop()"
+         class="top-of-page-link bend-corners topHandler">Top</a>
+    </div>
+  </div>
+{% endif %}

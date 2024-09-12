@@ -1,0 +1,110 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/searchResult_style.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/generalSearchResultStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/indexSearchResult_style.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/search_result.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <section class="search-bar-section">
+    <div class="search-bar-div set-flex">{% include "Search/SearchBarTemplate.html" %}</div>
+  </section>
+  <section class="price-section">
+    <h5 class="indices-color">INDICES</h5>
+    <div class="set-flex gap-large price-section-main">
+      <p class="text-modifier-large weight-modifier">{{ ticker }}</p>
+      <div>
+        <p class="text-modifier-large">{{ snapshot|get_asset_price_special_case|floatformat:2|default:"unavailable" }}</p>
+        <div class="set-flex gap-small">
+          {% if snapshot|get_asset_price_change_special_case|default:0 >= 0 %}
+            <p class="text-modifier-med price-up">
+              {{ snapshot|get_asset_price_change_special_case|floatformat:4|default:"N.A." }}
+            </p>
+            <p class="text-modifier-med price-up">
+              {{ snapshot|get_asset_percent_change_special_case|floatformat:2|default:"N.A" }}%
+            </p>
+          {% else %}
+            <p class="text-modifier-med price-down">
+              {{ snapshot|get_asset_price_change_special_case|floatformat:4|default:"N.A." }}
+            </p>
+            <p class="text-modifier-med price-down">
+              {{ snapshot|get_asset_percent_change_special_case|floatformat:2|default:"N.A." }}%
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div>
+      <h4>{{ name|default:"N.A." }}</h4>
+    </div>
+  </section>
+  <section class="chart-section">
+    <div class="stock-chart-frame" id="stock-chart-switch">
+      {% include "reusables/chartPlaceholder.html" with chart=chart current_ticker=nonPublicTicker %}
+    </div>
+  </section>
+  <section class="metrics-and-actions indices-special-case">
+    <div class="section-2 set-flex">
+      <div class="metrics flex-side-1">
+        <div class="addition-wrapper-for-heading">
+          <h2 class="additional-info-header">Metrics</h2>
+          <div class="additional-info grid">
+            <div>
+              <div class="info-box set-flex">
+                <p class="info-text">Previous Close:</p>
+                <p class="info-text info-text-modifier">{{ snapshot.session.previous_close|floatformat:2|default:"N.A" }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">Recent High:</p>
+                <p class="info-text info-text-modifier">{{ snapshot.session.high|floatformat:2|default:"N/A" }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">Recent Low:</p>
+                <p class="info-text info-text-modifier">{{ snapshot.session.low|floatformat:2|default:"N/A" }}</p>
+              </div>
+            </div>
+            <div>
+              <div class="info-box set-flex">
+                <p class="info-text">52 week high:</p>
+                <p class="info-text info-text-modifier">{{ fiftyTwoHigh|floatformat:2|default:"N.A." }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">52 week low:</p>
+                <p class="info-text info-text-modifier">{{ fiftyTwoLow|floatformat:2|default:"N.A." }}</p>
+              </div>
+              <div class="info-box set-flex">
+                <p class="info-text">Market Status:</p>
+                {% if snapshot.market_status == "closed" %}
+                  <p class="info-text info-text-modifier closed">{{ snapshot.market_status|upper|default:"N.A" }}</p>
+                {% elif snapshot.market_status == "open" %}
+                  <p class="info-text info-text-modifier open">{{ snapshot.market_status|upper|default:"N.A" }}</p>
+                {% elif not snapshot.market_status %}
+                  <p class="info-text info-text-modifier closed">{{ snapshot.market_status|upper|default:"N.A" }}</p>
+                {% else %}
+                  <p class="info-text info-text-modifier other-status">{{ snapshot.market_status|upper|default:"N.A" }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-side-2">
+        {% include 'reusables/actionsPlaceholder.html' with template='index' tickerType='indices' %}
+      </div>
+    </div>
+  </section>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/actions.js' %}"></script>
+  <script src="{% static 'js/searchBarTemplate.js' %}"></script>
+{% endblock extra_jsfiles %}

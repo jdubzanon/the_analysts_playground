@@ -1,0 +1,22 @@
+{% load custom_filters %}
+
+{% for jsonObj in indices %}
+  <div class="set-flex information-div">
+    {% with ticker=jsonObj.ticker|process_ticker|default:"N.A." %}
+      <div>
+        <a href="{% url 'search:htmxLinkDispatch' ticker_id=ticker mtype='indices' %}"
+           class="ticker-modifier">{{ ticker }}</a>
+        <p class="name-modifier">{{ jsonObj.name }}</p>
+      </div>
+    {% endwith %}
+    <div class="grid grid-align-center">
+      {% if jsonObj|get_asset_price_change_special_case|default:0 >= 0 %}
+        <p class="price-modifier price-up">{{ jsonObj.value|floatformat:2|default:"N.A." }}</p>
+        {% include 'reusables/swapChanges/indicesSwapChangesPlaceholder.html' with Mtype="indices" defaultDisplay=defaultDisplay data=jsonObj current_type=current_type %}
+      {% else %}
+        <p class="price-modifier price-down">{{ jsonObj.value|floatformat:2|default:"N.A." }}</p>
+        {% include 'reusables/swapChanges/indicesSwapChangesPlaceholder.html' with Mtype="indices" defaultDisplay=defaultDisplay data=jsonObj current_type=current_type %}
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}

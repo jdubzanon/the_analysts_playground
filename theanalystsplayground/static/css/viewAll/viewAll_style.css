@@ -1,0 +1,261 @@
+#included-result-main-div {
+    max-height: 80rem;
+    overflow-y: scroll;
+}
+
+
+
+.main-header-div {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3.2rem;
+    padding-top: 3.2rem;
+    background-color: #333;
+}
+
+.flex-box-wrapper {
+    padding-bottom: 3.2rem;
+    margin-bottom: 3.2rem;
+
+}
+
+
+.view-all-header {
+    color: #ffffff;
+}
+
+.flex-box-wrapper:not(:last-child) {
+    border-bottom: 2px solid #adb5bd;
+
+}
+
+.flex-box-div {
+    border: 2px solid #333;
+    margin-top: 2.4rem;
+
+}
+
+.table-div {
+    padding-left: 1.2rem;
+}
+
+
+
+.industry-table {
+    width: 100%;
+}
+
+
+.industry-header {
+    font-size: 1.8rem;
+    color: #ffffff;
+
+}
+
+
+.scope-class {
+    padding: 1rem;
+}
+
+.table-font-size {
+    font-size: 1.6rem;
+}
+
+
+.th-text {
+    font-size: 1.2rem;
+
+}
+
+
+
+.table-ticker:link,
+.table-ticker:visited {
+    color: #4263eb;
+}
+
+.table-ticker:hover,
+.table-ticker:active {
+    color: #37b24d;
+}
+
+.td-company-name {
+    color: #333;
+    font-style: italic;
+    font-size: 1.2rem;
+}
+
+
+.top-of-page-link:link,
+.top-of-page-link:visited {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    padding: 0.5rem .75rem;
+    background-color: #5f3dc4;
+    color: #fff;
+
+}
+
+.top-of-page-link:hover {
+    color: #333;
+}
+
+.alpha-flex {
+    justify-content: space-evenly;
+}
+
+
+
+.table-custom-space th,
+.table-custome-space td {
+    padding: 1.2rem;
+}
+
+.alphabet-grid {
+    gap: 1rem;
+    font-size: 1.4rem;
+}
+
+.alpha-letters {
+    color: #4263eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.alpha-letters:hover {
+    color: #37b24d;
+}
+
+
+
+.currency-matches {
+    gap: 1.8rem;
+}
+
+.currency-match {
+    font-size: 1.2rem;
+    color: #4263eb;
+    text-decoration: none;
+}
+
+.no-matches {
+    font-size: 1.2rem;
+    color: #e03131;
+}
+
+.matches:hover {
+    color: #37b24d;
+}
+
+.currency-match:hover {
+    color: #37b24d;
+
+}
+
+/* BIG HEADERS */
+
+.header-common {
+    margin-bottom: 6.4rem;
+    border-radius: 5px;
+    padding: 1rem 0;
+    color: #fff;
+}
+
+.forex-header {
+    background-color: #c2255c;
+}
+
+
+.crypto-header {
+    background-color: #5f3dc4;
+}
+
+.indices-header {
+    background-color: #c92a2a;
+    color: #fff;
+
+}
+
+/* INDEX VIEW ALL PAGE VIEW_ALL_INDICES.HTML */
+
+.index-results-main {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+
+
+.flex-main {
+    align-items: flex-start;
+}
+
+.flex-left-side {
+    row-gap: 0.5rem;
+}
+
+.flex-right-side {
+    border: 2px solid #c92a2a;
+    padding: 1.2rem;
+    border-radius: 5px;
+    min-width: 40%
+}
+
+
+
+.link-decoration {
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: #4263eb;
+}
+
+.link-decoration:hover {
+    color: #37b24d;
+}
+
+.pagination-link-decoration {
+    color: #ce5959;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.pagination-link-decoration:hover {
+    color: #37b24d;
+}
+
+.companyName-style {
+    font-size: 1.2rem;
+    color: #444;
+    font-style: italic;
+}
+
+.results-info-prompt {
+    font-size: 1.2rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #343a40;
+}
+
+
+/* SEARCHBAR MEDIA QUERIES */
+/* SEARCHBAR CONTROL */
+
+@media (max-width: 500px) {
+    .search-bar-div form {
+        width: 90%;
+    }
+
+    input::placeholder {
+        color: black;
+    }
+
+    input[type="text"] {
+        font-size: 1rem;
+
+    }
+}
+
+@media (max-width: 385px) {
+    .search-bar-div form {
+        width: 100%;
+    }
+}

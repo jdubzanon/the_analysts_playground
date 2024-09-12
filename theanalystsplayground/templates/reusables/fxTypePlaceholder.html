@@ -1,0 +1,18 @@
+{% if populated %}
+  <div class="grid currency-matches">
+    {% for currency,currencyName in currencies %}
+      <div>
+        <a href="#"
+           class="currency-match"
+           hx-post="{% url 'currencies:switchCurrencies' currency=currency %}"
+           hx-target="#more-items-swap"
+           onclick="return false;">
+          <p class="currency-ticker">{{ currency }}</p>
+          <p class="base-currency-name">{{ currencyName }}</p>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="no-matches">SORRY NO MATCHES</p>
+{% endif %}

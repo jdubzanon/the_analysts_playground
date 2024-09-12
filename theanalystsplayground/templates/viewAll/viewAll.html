@@ -1,0 +1,32 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/viewAll/viewAll_style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/tableStyle/tableStyle.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/mediaQueries/table_style.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  {% if api_down %}
+    {% include "reusables/bad_request_template.html" %}
+  {% else %}
+    <div class="main-page-div container">
+      <div class="search-bar-div set-flex">{% include "Search/SearchBarTemplate.html" %}</div>
+      <div class="matching-div">
+        {% if type == 'Dow30' %}
+          {% include "viewAll/SingleIndustryTable.html" with table_title=table_title dow30=dow30 %}
+        {% elif type == 'Semiconductor' or 'Softeware' or 'Bank' %}
+          {% include "viewAll/sectorTables.html" with data=data %}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/searchBarTemplate.js' %}"></script>
+  <script src="{% static 'js/scrollTop.js' %}"></script>
+{% endblock extra_jsfiles %}

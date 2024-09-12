@@ -1,0 +1,568 @@
+/* ####################### */
+/* TOP SECTION FOR ALL LAYOUTS */
+/* ############################# */
+p {
+    margin-bottom: 0;
+}
+
+.price-section-main {
+    width: 50%;
+    border-bottom: 1px solid #5f3dc4;
+    padding-bottom: 1.6rem;
+}
+
+.weight-modifier {
+    font-weight: 500;
+}
+
+.text-modifier-large {
+    font-size: 3.4rem;
+}
+
+.text-modifier-med {
+    font-size: 2rem;
+}
+
+.gap-large {
+    gap: 6.4rem;
+}
+
+.gap-small {
+    gap: 1rem;
+}
+
+h4 {
+    color: #e8590c;
+}
+
+
+/* ########### */
+/* MARKET STATUS PROMPT */
+/* ############## */
+
+
+
+.market-status-main {
+    position: absolute;
+    top: 15%;
+    right: 25%;
+    gap: 1.2rem;
+}
+
+.open {
+    color: #37b24d;
+}
+
+.closed {
+    color: #e03131;
+}
+
+.other-status-market {
+    color: #1971c2;
+}
+
+/* ################# */
+/* ADDITIONAL INFO SECTION ETF AND STOCKS */
+/* ###################### */
+
+
+.info-box {
+    flex-direction: column;
+    font-size: 1.2rem;
+    padding: 1rem 1rem;
+}
+
+.info-text {
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.info-text-modifier {
+    font-weight: 600;
+    font-size: 1.4rem;
+
+}
+
+.additional-info {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: start;
+    border: 2px solid #333;
+    max-width: 80%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+
+}
+
+.additional-info-header {
+    margin-left: 1rem;
+}
+
+.metrics {
+    color: #3a3e42;
+    grid-column: 1 / span 2;
+    width: 50%;
+    max-width: 75%;
+
+
+}
+
+/* ###########CHART STYLE######## */
+.chart-links {
+    gap: 2rem;
+    font-size: 1.2rem;
+}
+
+.chart-link:link,
+.chart-link:visited {
+    color: #862e9c;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
+.chart-link:active,
+.chart-link:hover {
+    color: #4263eb;
+    text-decoration: none;
+}
+
+/* ########################### */
+
+/* ##########COMPETITOR SECTION BOX##################### */
+.competitors-section-div {
+    max-width: 50%;
+}
+
+.competitor-section-box {
+    flex-direction: column;
+    border: 2px solid #333;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.competitor-section-title {
+    color: #495057;
+    /* font-size: 1rem; */
+    border-bottom: 1px solid #999;
+}
+
+
+.competitors-flex {
+    justify-content: space-between;
+
+}
+
+.competitors-flex p {
+    margin-bottom: 0 !important;
+    text-align: start;
+}
+
+
+.individual-competitor {
+    margin-bottom: 1rem;
+}
+
+.competitor-identification {
+    padding-left: 0.25rem;
+}
+
+
+
+.competitor-ticker:link,
+.competitor-ticker:visited {
+    color: #4263eb;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-decoration: none;
+
+}
+
+.competitor-ticker:active,
+.competitor-ticker:hover {
+    color: #37b24d;
+}
+
+.competitor-name {
+    color: #555;
+    font-size: 1.2rem;
+    font-style: italic;
+
+}
+
+.competitor-numbers {
+    font-size: 1.4rem;
+    padding: 0 0.25rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.competitor-percent-today-change {
+    display: flex;
+    justify-content: space-between;
+}
+
+.competitor-today-change {
+    justify-content: center;
+}
+
+.competitor-percent-change {
+    font-size: 1.2rem;
+}
+
+#competitor-swap .seeMore-link {
+    text-align: start;
+}
+
+/* ##########       ########## */
+
+
+
+
+
+/* ############ACTIONS############# */
+.section-2 {
+    margin-bottom: 7.4rem;
+    /* position: relative; */
+}
+
+/* BOTTOM OF GRID */
+.metrics {
+    color: #3a3e42;
+    grid-column: 1 / span 2;
+    width: 50%;
+    max-width: 75%;
+
+
+}
+
+.flex-side-2 {
+    position: relative;
+}
+
+.actions {
+    padding: 2.4rem;
+    max-height: 8rem;
+    min-width: 20rem;
+    overflow: hidden;
+    transition: max-height 0.75s ease-in-out;
+}
+
+.actions.expanded {
+    max-height: 40rem;
+}
+
+
+
+
+.actions-div {
+    margin-bottom: 2.4rem;
+    padding: 1rem;
+    border: 1px solid #888;
+    border-radius: 8px;
+    justify-content: center;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2), 0px 1px 0 1px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+
+
+.actions-link-main {
+    color: #4263eb;
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+
+
+.actions-link-main:hover,
+.actions-link-main:active,
+.caret-down-link:hover,
+.caret-down-link:active {
+    color: #37b24d;
+}
+
+.caret-down {
+    font-size: 2.4rem;
+}
+
+.action-links {
+    gap: 2.4rem;
+}
+
+.individual-action-link {
+    padding: 0.5rem 0.5rem;
+    border: 1px solid #888;
+    border-radius: 8px;
+    text-align: center;
+    color: #fff;
+    font-size: 1.2rem;
+    text-decoration: none;
+    font-weight: 500;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2), 0px 1px 0 1px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+
+/* add to watchlist link */
+
+.add-watchlist,
+.add-watchlist:visited,
+.add-watchlist:active {
+    background-color: #862e9c;
+    color: #fff;
+}
+
+.add-watchlist:hover {
+    background-color: #37b24d;
+    color: #fff;
+}
+
+
+/* related stocks /indexs/ etfs link */
+.show-competitors,
+.show-competitors:visited,
+.show-competitors:active {
+    background-color: #364fc7;
+    color: #fff;
+}
+
+.show-competitors:hover {
+    background-color: #37b24d;
+    color: #fff;
+}
+
+
+#watchlist-prompt {
+    position: absolute;
+    top: -2rem;
+    font-size: 1.2rem;
+    max-width: 15rem;
+    font-weight: 500;
+}
+
+/* RELATED STOCK STYLES */
+
+#competitor-swap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 40rem;
+    width: 0;
+    overflow: hidden;
+    transition: width 0.5s ease-in-out;
+    background-color: #fff;
+    z-index: 3;
+    border-radius: 5px;
+}
+
+#competitor-swap.expand-right {
+    width: 40rem;
+}
+
+
+.seeMore-link {
+    font-size: 1.2rem;
+    font-weight: 500;
+
+}
+
+/* COMPANY INFO STYLE */
+.company-info-wrapper {
+    width: 100%;
+    padding: 0.5rem 0.5rem;
+}
+
+/* LINK TO OPEN INFO SWAP */
+.company-info,
+.company-info:visited,
+.company-info:active {
+    background-color: #e8590c;
+    color: #fff;
+
+}
+
+.company-info:hover {
+    background-color: #37b24d;
+    color: #fff;
+}
+
+#company-info-swap {
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    background-color: #fff;
+    z-index: 3;
+
+}
+
+.company-details-heading {
+    justify-content: space-between;
+}
+
+
+.company-details {
+    padding: 1rem;
+    border: 3px solid #e8590c;
+    border-radius: 5px;
+    background-color: black;
+    color: #fff;
+}
+
+#company-info-swap.expand-right {
+    width: 40rem;
+}
+
+.close-link {
+    font-size: 1.2rem;
+
+}
+
+.close-link-company-info {
+    justify-content: end;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+
+
+.modifier {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+}
+
+.margin-modifier {
+    margin-top: 2rem;
+}
+
+.website-link:link,
+.website-link:visited {
+    display: inline-block;
+    font-size: 1.4rem;
+    color: #364fc7;
+    font-weight: 500;
+    margin-top: 1rem;
+    color: #fff;
+}
+
+.sec-url,
+.sec-url:visited,
+.sec-url:active {
+    background-color: #ffbe0b;
+    color: #fff;
+}
+
+.sec-url:hover {
+    background-color: #37b24d;
+    color: #fff;
+}
+
+.financialsSummary {
+    background-color: #37b24d;
+
+}
+
+
+
+.htmx-indicator {
+    display: none;
+}
+
+.htmx-request .htmx-indicator {
+    display: block;
+    position: absolute;
+    left: 5rem;
+    bottom: 2rem;
+}
+
+.htmx-request.htmx-indicator {
+    display: block;
+    position: absolute;
+    left: 5rem;
+    bottom: 2rem;
+}
+
+/* ############     ############# */
+
+
+/* ###########INDEX AND ETF RELATED BOX#############  */
+#index-swap {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    width: 0;
+    overflow: hidden;
+    transition: width 0.5s ease-in-out;
+    background-color: #fff;
+    z-index: 3;
+    border-radius: 5px;
+}
+
+#index-swap.expand-right {
+    width: 45rem;
+}
+
+.no-match-index {
+    padding: 1.2rem;
+    color: #e03131;
+
+}
+
+
+.related-indices-close-link {
+    font-size: 1.4rem;
+    color: #4263eb;
+    font-weight: 500;
+}
+
+.related-indices-close-link:hover {
+    color: #37b24d;
+}
+
+.indices-links {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #4263eb;
+}
+
+.indices-links:hover {
+    color: #37b24d;
+}
+
+.indices-company-name {
+    font-size: 1.2rem;
+    color: #495057;
+    font-style: italic;
+    max-width: 95%;
+}
+
+.numeric-data {
+    justify-items: center;
+    align-items: self-end;
+    font-size: 1.4rem;
+    font-weight: 500;
+
+}
+
+.indices-pagination {
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: #4263eb;
+    font-weight: 500;
+}
+
+/* ###########                  #############  */
+
+/* BAD REQUEST  */
+.bad-request-box {
+    padding: 1.2rem;
+}

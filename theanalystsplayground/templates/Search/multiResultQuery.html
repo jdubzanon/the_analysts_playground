@@ -1,0 +1,35 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/generalStyles/generalStyles.css' %}" />
+  <link rel="stylesheet"
+        href="{% static 'css/SearchResult/multiResultQuery_style.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <div class="search-bar-div set-flex">{% include "Search/SearchBarTemplate.html" %}</div>
+  <div class="multi-search-header set-flex">
+    <h2>Multiple Matches For Your Query Please Choose One or Search Again</h2>
+  </div>
+  <div class="multi-result-wrapper set-flex">
+    <div class="multi-result-div grid grid--4--columns">
+      {% for result in queryResults %}
+        <div class="multi-result-div ">
+          <p class="search-result-text">
+            <a class="search-result-link"
+               href="{% url 'search:htmxLinkDispatch' ticker_id=result.public_ticker mtype=result.market_type %}">{{ result.public_ticker }}</a>
+            <br />
+            <span class="search-result-companyName">{{ result.company_name }}</span>
+            <br />
+            <span class="market-type-text">Market: <span class="security-type">{{ result.market_type }}</span></span>
+          </p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
+{% block extra_jsfiles %}
+  <script src="{% static 'js/searchBarTemplate.js' %}"></script>
+{% endblock extra_jsfiles %}

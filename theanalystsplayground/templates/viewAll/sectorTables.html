@@ -1,0 +1,57 @@
+{% load custom_filters %}
+
+{% for industry , info in data.items %}
+  <div class="flex-box-wrapper">
+    <div class="flex-box-div bend-corners">
+      <div class="main-header-div">
+        <h2 class="industry-header">Stocks in {{ industry }}</h2>
+      </div>
+      <table>
+        <thead class="table-head">
+          <tr>
+            <th scope="col" class="th-text">Ticker</th>
+            <th scope="col" align="left" class="th-text">Company Name</th>
+            <th scope="col" class="th-text">Current Price</th>
+            <th scope="col" class="th-text">Price Change</th>
+            <th scope="col" class="th-text">Percent Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item, jsonItem in info.items %}
+            <tr>
+              <th class="scope-class" scope="row">
+                <a href="{% url 'search:htmxLinkDispatch' ticker_id=item mtype='stocks' %}"
+                   class="table-ticker">{{ item }}</a>
+              </th>
+              <td class="td-company-name">{{ jsonItem.company_name }}</td>
+              <td class="td-price">{{ jsonItem.data|get_asset_price|floatformat:2|default:"N.A." }}</td>
+              {% if jsonItem.data|get_asset_price_change|default:0 >= 0 %}
+                <td class="td-percent-change price-up">
+                  <ion-icon name="arrow-up-outline"></ion-icon>
+                  {{ jsonItem.data|get_asset_price_change|floatformat:2|default:"N.A." }}
+                </td>
+                <td class="td-price-change price-up">
+                  <ion-icon name="arrow-up-outline"></ion-icon>
+                  {{ jsonItem.data|get_asset_percent_change|floatformat:2|default:"N.A." }}
+                  %
+                </td>
+              {% else %}
+                <td class="td-price-change price-down">
+                  <ion-icon name="arrow-down-outline"></ion-icon>
+                  {{ jsonItem.data|get_asset_price_change|floatformat:2|default:"N.A." }}
+                </td>
+                <td class="td-percent-change price-down">
+                  <ion-icon name="arrow-down-outline"></ion-icon>
+                  {{ jsonItem.data|get_asset_percent_change|floatformat:2|default:"N.A." }}%
+                </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <a href="#"
+       class="top-of-page-link bend-corners topHandler"
+       onclick="scrollToTop()">Top</a>
+  </div>
+{% endfor %}
