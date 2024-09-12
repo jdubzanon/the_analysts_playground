@@ -25,6 +25,6 @@ numpy==1.26.4
 pandas==2.2.2
 requests==2.31.0
 yfinance==0.2.38
-plotly==5.22.0
+plotly==5.24.1
 humanize==4.10.0
 pytz==2024.1
