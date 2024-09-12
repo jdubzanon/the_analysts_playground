@@ -27,4 +27,4 @@ requests==2.31.0
 yfinance==0.2.38
 plotly==5.22.0
 humanize==4.10.0
-pytz==2024.1
+pytz==2024.2
