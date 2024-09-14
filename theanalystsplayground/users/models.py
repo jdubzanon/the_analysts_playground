@@ -17,7 +17,12 @@ class User(AbstractUser):
     name = CharField(_("Name of User"), blank=True, max_length=255)
     first_name = None  # type: ignore[assignment]
     last_name = None  # type: ignore[assignment]
-    uuid = models.BigIntegerField(_("Random Number"), blank=True)
+    uuid = models.BigIntegerField(
+        _("Random Number"),
+        blank=True,
+        null=False,
+        default=999999999,
+    )
 
     def save(self, *args, **kwargs):
         # Check if the random_number field is empty
