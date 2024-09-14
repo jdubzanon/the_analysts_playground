@@ -26,7 +26,7 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         # Check if the random_number field is empty
-        if not self.uuid:
+        if self.uuid is None:
             while True:
                 uuid = np.random.randint(10**9, 10**10)
                 if not User.objects.filter(uuid=uuid).exists():
