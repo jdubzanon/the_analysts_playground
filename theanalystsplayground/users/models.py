@@ -20,7 +20,7 @@ class User(AbstractUser):
     uuid = models.BigIntegerField(
         _("Random Number"),
         blank=True,
-        null=False,
+        null=True,
         default=999999999,
     )
 
