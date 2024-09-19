@@ -37,7 +37,10 @@ def about_me_view(request):
 def dispatcher(request, user_id=None):
     if request.user.is_authenticated:
         return redirect(
-            reverse("HomePage:user-home-view", kwargs={"user_id": request.user.uuid}),
+            reverse(
+                "HomePage:user-home-view",
+                kwargs={"user_id": request.user.username},
+            ),
         )
 
     return redirect(reverse("HomePage:home-view"))

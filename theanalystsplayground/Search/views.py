@@ -165,7 +165,7 @@ def add_remove_watchlist(request, ticker_id=None, mtype=None):
         response = HttpResponse("Redirecting...")
         response["HX-Redirect"] = reverse("account_login")
         return response
-    user = User.objects.get(uuid=request.user.uuid)
+    user = User.objects.get(username=request.user.username)
 
     user_watchlist = Watchlist.objects.filter(
         ticker=ticker_id.upper(),
@@ -332,7 +332,7 @@ def common_search_result(
     mtype=None,
 ):  # handles search bar link clicks
     if request.user.is_authenticated:
-        user = User.objects.get(uuid=request.user.uuid)
+        user = User.objects.get(username=request.user.username)
         precheck = Watchlist.objects.filter(
             ticker=ticker_id.upper(),
             market_type=mtype,
@@ -492,7 +492,7 @@ def etf_search_result(
 
 def crypto_search_result(request, ticker_id=None, mtype=None, user_id=None):
     if request.user.is_authenticated:
-        user = User.objects.get(uuid=request.user.uuid)
+        user = User.objects.get(username=request.user.username)
         model_instance = StockSearch.objects.get(api_call_symbol=ticker_id.upper())
         ticker = model_instance.public_ticker
         precheck = Watchlist.objects.filter(
@@ -538,7 +538,7 @@ def crypto_search_result(request, ticker_id=None, mtype=None, user_id=None):
 
 def forex_search_result(request, ticker_id=None, mtype=None, user_id=None):
     if request.user.is_authenticated:
-        user = User.objects.get(uuid=request.user.uuid)
+        user = User.objects.get(username=request.user.username)
         model_instance = StockSearch.objects.get(
             api_call_symbol=ticker_id.upper(),
             market_type=mtype,
@@ -614,7 +614,7 @@ def forex_search_result(request, ticker_id=None, mtype=None, user_id=None):
 
 def indices_search_result(request, ticker_id=None, mtype=None, user_id=None):
     if request.user.is_authenticated:
-        user = User.objects.get(uuid=request.user.uuid)
+        user = User.objects.get(username=request.user.username)
         model_instance = StockSearch.objects.get(
             api_call_symbol=ticker_id.upper(),
             market_type=mtype,

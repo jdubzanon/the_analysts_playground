@@ -112,7 +112,7 @@ def return_reverse_helper(
                         "ticker_id": query.api_call_symbol,
                         "mtype": query.market_type,
                         "ticker_type": ticker_type,
-                        "user_id": request.user.uuid,
+                        "user_id": request.user.username,
                     },
                 ),
             )
@@ -122,7 +122,7 @@ def return_reverse_helper(
                 kwargs={
                     "ticker_id": query.api_call_symbol,
                     "mtype": query.market_type,
-                    "user_id": request.user.uuid,
+                    "user_id": request.user.username,
                 },
             ),
         )
@@ -154,7 +154,7 @@ def send_to_search_error_page(request):
         return redirect(
             reverse(
                 "search:user_search",
-                kwargs={"status": "error", "user_id": request.user.uuid},
+                kwargs={"status": "error", "user_id": request.user.username},
             ),
         )
 

@@ -32,9 +32,9 @@ User = get_user_model()
 @login_required
 def htmx_portfolio_item_delete(request, ticker_id=None, mtype=None):
     context = {}
-    context["user_id"] = request.user.uuid
+    context["user_id"] = request.user.username
 
-    user = User.objects.get(uuid=request.user.uuid)
+    user = User.objects.get(username=request.user.username)
     Portfolio.objects.get(
         ticker=ticker_id.upper(),
         market_type=mtype,
@@ -63,8 +63,8 @@ def htmx_portfolio_item_delete(request, ticker_id=None, mtype=None):
 @login_required
 def htmx_edit_portfolio(request):
     context = {}
-    context["user_id"] = request.user.uuid
-    user = User.objects.get(uuid=request.user.uuid)
+    context["user_id"] = request.user.username
+    user = User.objects.get(username=request.user.username)
     form = PortfolioEditForm(request.POST)
     if form.is_valid():
         try:
@@ -101,8 +101,8 @@ def htmx_edit_portfolio(request):
 @login_required
 def htmx_portfolio_swap(request):
     context = {}
-    context["user_id"] = request.user.uuid
-    user = User.objects.get(uuid=request.user.uuid)
+    context["user_id"] = request.user.username
+    user = User.objects.get(username=request.user.username)
     form = PortfolioForm(request.POST)
     if form.is_valid():
         ticker = request.POST.get("ticker")
@@ -172,7 +172,7 @@ def htmx_portfolio_swap(request):
 #########################################
 @login_required
 def htmx_swap_delete(request, ticker_id=None, mtype=None):
-    user = User.objects.get(uuid=request.user.uuid)
+    user = User.objects.get(username=request.user.username)
     Watchlist.objects.get(
         ticker=ticker_id.upper(),
         user=user,
@@ -200,7 +200,7 @@ def htmx_swap_delete(request, ticker_id=None, mtype=None):
 @login_required
 def htmx_reload(request):
     context = {}
-    user = User.objects.get(uuid=request.user.uuid)
+    user = User.objects.get(username=request.user.username)
     user_watchlist = Watchlist.objects.filter(user=user)
     if user_watchlist.exists():
         context["user_watchlist"] = True
@@ -218,7 +218,7 @@ def htmx_reload(request):
 
 
 def multipe_watchlist_match(request, mtype=None, ticker_id=None):
-    user = User.objects.get(uuid=request.user.uuid)
+    user = User.objects.get(username=request.user.username)
     #    HANDLES LINKS FOR MULTIPLE MATCHES
     # if request.method == "GET":
     context = {}
@@ -264,7 +264,7 @@ def multipe_watchlist_match(request, mtype=None, ticker_id=None):
 
 @login_required
 def htmx_swap_function(request, mtype=None, ticker_id=None):
-    user = User.objects.get(uuid=request.user.uuid)
+    user = User.objects.get(username=request.user.username)
     if request.POST.get("stockBox"):
         context = {}
         ticker = request.POST.get("stockBox")
@@ -333,18 +333,21 @@ def dashboard_dispatch_for_redirect(request, user_id=None):
     # FOR WHEN USER LOGINS IN THIS ATTACHES USER ID TO THE URL
     # FUNCTION IS CONNECTED TO THE SETTINGS.PY LOGIN_REDIRECT_URL
     return redirect(
-        reverse("dashboard_app:dashboard_view", kwargs={"user_id": request.user.uuid}),
+        reverse(
+            "dashboard_app:dashboard_view",
+            kwargs={"user_id": request.user.username},
+        ),
     )
 
 
 @login_required
 def dashboard_view(request, user_id=None):
     context = {}
-    context["user_id"] = request.user.uuid
+    context["user_id"] = request.user.username
     pform = PortfolioForm()
     context["form"] = pform
     context["editForm"] = PortfolioEditForm()
-    user = User.objects.get(uuid=request.user.uuid)
+    user = User.objects.get(username=request.user.username)
     user_watchlist = Watchlist.objects.filter(user=user)
     user_portfolio = Portfolio.objects.filter(user=user)
     if user_watchlist.exists():

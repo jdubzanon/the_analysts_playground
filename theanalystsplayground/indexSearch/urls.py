@@ -6,7 +6,7 @@ app_name = "indexSearch"
 
 urlpatterns = [
     path("", views.index_search_view, name="indexSearch_view"),
-    path("user=<int:user_id>", views.index_search_view, name="user_indexSearch_view"),
+    path("user=<str:user_id>", views.index_search_view, name="user_indexSearch_view"),
     path(
         "htmxRelatedIndices/<str:company_name>/<str:page_requested>/<int:index_low>/<int:index_high>/",
         views.related_indices,
@@ -24,7 +24,7 @@ urlpatterns = [
     ),
     path("view-all-indices/", views.view_all_indices, name="viewAllIndices"),
     path(
-        "view-all-indices/user=<int:user_id>",
+        "view-all-indices/user=<str:user_id>",
         views.view_all_indices,
         name="user_viewAllIndices",
     ),

@@ -37,7 +37,7 @@ urlpatterns = [
     ),
     path("getFinancials/<str:ticker_id>/", views.get_financials, name="getFinancials"),
     path("search+dispatch/", views.dispatcher, name="dispatch"),
-    path("search+dispatch/<int:user_id>/", views.dispatcher, name="user_dispatch"),
+    path("search+dispatch/<str:user_id>/", views.dispatcher, name="user_dispatch"),
     path(
         "search+dispatch/<str:ticker_id>/<str:mtype>/",
         views.dispatcher,
@@ -57,7 +57,7 @@ urlpatterns = [
         name="stocks_search_result",
     ),
     path(
-        "result=CS/<str:ticker_id>/<str:mtype>/user=<int:user_id>/",
+        "result=CS/<str:ticker_id>/<str:mtype>/user=<str:user_id>/",
         views.common_search_result,
         name="user_stocks_search_result",
     ),
@@ -68,7 +68,7 @@ urlpatterns = [
         name="crypto_search_result",
     ),
     path(
-        "result=crypto/<str:ticker_id>/<str:mtype>/<int:user_id>/",
+        "result=crypto/<str:ticker_id>/<str:mtype>/<str:user_id>/",
         views.crypto_search_result,
         name="user_crypto_search_result",
     ),
@@ -79,7 +79,7 @@ urlpatterns = [
         name="fx_search_result",
     ),
     path(
-        "results=forex/<str:ticker_id>/<str:mtype>/<int:user_id>/",
+        "results=forex/<str:ticker_id>/<str:mtype>/<str:user_id>/",
         views.forex_search_result,
         name="user_fx_search_result",
     ),
@@ -90,7 +90,7 @@ urlpatterns = [
         name="indices_search_result",
     ),
     path(
-        "results=index/<str:ticker_id>/<str:mtype>/user=<int:user_id>/",
+        "results=index/<str:ticker_id>/<str:mtype>/user=<str:user_id>/",
         views.indices_search_result,
         name="user_indices_search_result",
     ),
@@ -101,10 +101,10 @@ urlpatterns = [
         name="etf_search_result",
     ),
     path(
-        "result=other/<str:ticker_id>/<str:mtype>/<str:ticker_type>/user=<int:user_id>/",
+        "result=other/<str:ticker_id>/<str:mtype>/<str:ticker_type>/user=<str:user_id>/",
         views.etf_search_result,
         name="user_etf_search_result",
     ),
-    path("<str:status>/user=<int:user_id>/", views.search, name="user_search"),
+    path("<str:status>/user=<str:user_id>/", views.search, name="user_search"),
     path("<str:status>/", views.search, name="search"),
 ]

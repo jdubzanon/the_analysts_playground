@@ -1,0 +1,17 @@
+{% extends 'account/base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet"
+        href="{% static 'css/dbloader/dbloader_style.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <h1>check this</h1>
+  <div class="loading-links">
+    <a href="{% url 'dbloader:dbloader_forex_view' %}">FOREX</a>
+    <a href="{% url 'dbloader:dbloader_stocks_view' %}">STOCKS</a>
+    <a href="{% url 'dbloader:dbloader_crypto_view' %}">CRYPTO</a>
+    <a href="{% url 'dbloader:dbloader_index_view' %}">INDEX</a>
+  </div>
+{% endblock content %}

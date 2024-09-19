@@ -11,7 +11,7 @@ urlpatterns = [
         views.newscenter_form_handler,
         name="newscenter_form_handler",
     ),
-    path("user=<int:user_id>/", views.newscenter_view, name="user_newsCenter_view"),
+    path("user=<str:user_id>/", views.newscenter_view, name="user_newsCenter_view"),
     path(
         "<str:receiving_string>/<int:index_low>/<int:index_high>/<str:page_request>/<str:mtype>/",
         views.htmx_swap,

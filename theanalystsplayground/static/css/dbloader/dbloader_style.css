@@ -1,0 +1,8 @@
+.loading-links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.loading-links a {
+    font-size: 1.6rem;
+}

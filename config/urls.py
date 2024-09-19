@@ -29,6 +29,7 @@ urlpatterns = [
     path("comments/", include("theanalystsplayground.commentSection.urls")),
     path("currencies/", include("theanalystsplayground.currencies.urls")),
     path("indexSearch/", include("theanalystsplayground.indexSearch.urls")),
+    path("dbloader/", include("theanalystsplayground.dbloader.urls")),
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]

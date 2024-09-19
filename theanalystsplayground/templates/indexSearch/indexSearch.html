@@ -65,7 +65,7 @@
         </ul>
         {% if request.user.is_authenticated %}
           <p>
-            If you would like to see all of the indices available <a href="{% url 'indexSearch:user_viewAllIndices' user_id=request.user.uuid %}">Click
+            If you would like to see all of the indices available <a href="{% url 'indexSearch:user_viewAllIndices' user_id=request.user.username %}">Click
           Here</a>
         </p>
       {% else %}

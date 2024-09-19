@@ -10,7 +10,7 @@ urlpatterns = [
         views.dashboard_dispatch_for_redirect,
         name="dashboardDispatchForRedirect",
     ),
-    path("user=<int:user_id>/", views.dashboard_view, name="dashboard_view"),
+    path("user=<str:user_id>/", views.dashboard_view, name="dashboard_view"),
     path("htmxReload/", views.htmx_reload, name="htmxReload"),
     path("swapping/", views.htmx_swap_function, name="_htmxSwapfunction"),
     path(

@@ -90,22 +90,22 @@
           <nav class="nav-bar" id="nav-bar">
             <h3>Where would you like to go?</h3>
             {% if request.user.is_authenticated %}
-              <a href="{% url 'HomePage:user-dispatcher-view' user_id=request.user.uuid %}"
+              <a href="{% url 'HomePage:user-dispatcher-view' user_id=request.user.username %}"
                  class="section-styles">Home</a>
-              <a href="{% url 'dashboard_app:dashboard_view' user_id=request.user.uuid %}"
+              <a href="{% url 'dashboard_app:dashboard_view' user_id=request.user.username %}"
                  class="section-styles">Dashboard</a>
-              <a href="{% url 'search:user_search' status='base' user_id=request.user.uuid %}"
+              <a href="{% url 'search:user_search' status='base' user_id=request.user.username %}"
                  class="section-styles">Search</a>
-              <a href="{% url 'stockCenter:user_stockCenter_view' user_id=request.user.uuid %}"
+              <a href="{% url 'stockCenter:user_stockCenter_view' user_id=request.user.username %}"
                  class="section-styles">Stock Center</a>
-              <a href="{% url 'newsCenter:user_newsCenter_view' user_id=request.user.uuid %}"
+              <a href="{% url 'newsCenter:user_newsCenter_view' user_id=request.user.username %}"
                  class="section-styles">News Center</a>
-              <a href="{% url 'currencies:user_moreCryptoCurrencies' letter='A' user_id=request.user.uuid %}"
+              <a href="{% url 'currencies:user_moreCryptoCurrencies' letter='A' user_id=request.user.username %}"
                  class="section-styles">Crypto Center</a>
-              <a href="{% url 'currencies:user_moreForexCurrencies' letter='A' user_id=request.user.uuid %}"
+              <a href="{% url 'currencies:user_moreForexCurrencies' letter='A' user_id=request.user.username %}"
                  class="section-styles">Forex
               Center</a>
-              <a href="{% url 'indexSearch:user_indexSearch_view' user_id=request.user.uuid %}"
+              <a href="{% url 'indexSearch:user_indexSearch_view' user_id=request.user.username %}"
                  class="section-styles">Index Center</a>
               <a href="{% url 'account_logout' %}" class="section-styles">Log Out</a>
               <a href="#" class="section-styles">Account</a>
@@ -165,21 +165,21 @@
                     <h4>Site Navigation:</h4>
                     {% if request.user.is_authenticated %}
                       <h5>You are logged in {{ request.user.username }}</h5>
-                      <a href="{% url 'HomePage:user-dispatcher-view' user_id=request.user.uuid %}"" class=" text-white
+                      <a href="{% url 'HomePage:user-dispatcher-view' user_id=request.user.username %}"" class=" text-white
                       footer-links">Home</a>
-                      <a href="{% url 'dashboard_app:dashboard_view' user_id=request.user.uuid %}"
+                      <a href="{% url 'dashboard_app:dashboard_view' user_id=request.user.username %}"
                          class="text-white footer-links">Dashboard</a>
-                      <a href="{% url 'search:user_search' status='base' user_id=request.user.uuid %}"
+                      <a href="{% url 'search:user_search' status='base' user_id=request.user.username %}"
                          class="text-white footer-links">Search</a>
-                      <a href="{% url 'newsCenter:user_newsCenter_view' user_id=request.user.uuid %}"
+                      <a href="{% url 'newsCenter:user_newsCenter_view' user_id=request.user.username %}"
                          class="text-white footer-links">News Center</a>
-                      <a href="{% url 'stockCenter:user_stockCenter_view' user_id=request.user.uuid %}"
+                      <a href="{% url 'stockCenter:user_stockCenter_view' user_id=request.user.username %}"
                          class="text-white footer-links">Stock Center</a>
-                      <a href="{% url 'currencies:user_moreCryptoCurrencies' letter='A' user_id=request.user.uuid %}"
+                      <a href="{% url 'currencies:user_moreCryptoCurrencies' letter='A' user_id=request.user.username %}"
                          class="text-white footer-links">Crypto Center</a>
-                      <a href="{% url 'currencies:user_moreForexCurrencies' letter='A' user_id=request.user.uuid %}"
+                      <a href="{% url 'currencies:user_moreForexCurrencies' letter='A' user_id=request.user.username %}"
                          class="text-white footer-links">Forex Center</a>
-                      <a href="{% url 'indexSearch:user_indexSearch_view' user_id=request.user.uuid %}"
+                      <a href="{% url 'indexSearch:user_indexSearch_view' user_id=request.user.username %}"
                          class="text-white footer-links">Index Center</a>
                       <a href="{% url 'account_logout' %}" class="text-white footer-links">Log Out</a>
                       <a href="{% url 'users:delete_user_view' %}"

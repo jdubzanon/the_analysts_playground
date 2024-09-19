@@ -16,7 +16,7 @@ urlpatterns = [
         name="moreCryptoCurrencies",
     ),
     path(
-        "crypto/<str:letter>/user=<int:user_id>/",
+        "crypto/<str:letter>/user=<str:user_id>/",
         views.view_crypto_currencies,
         name="user_moreCryptoCurrencies",
     ),
@@ -26,7 +26,7 @@ urlpatterns = [
         name="moreForexCurrencies",
     ),
     path(
-        "forex/<str:letter>/user=<int:user_id>/",
+        "forex/<str:letter>/user=<str:user_id>/",
         views.view_forex_currencies,
         name="user_moreForexCurrencies",
     ),

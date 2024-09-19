@@ -84,7 +84,7 @@
           {% endfor %}
           <div>
             {% if request.user.is_authenticated %}
-              <a href="{% url 'currencies:user_moreCryptoCurrencies' letter='A' user_id=request.user.uuid %}"
+              <a href="{% url 'currencies:user_moreCryptoCurrencies' letter='A' user_id=request.user.username %}"
                  class="see-more">More Crypto</a>
             {% else %}
               <a href="{% url 'currencies:moreCryptoCurrencies' letter='A' %}"
@@ -129,7 +129,7 @@
           {% endfor %}
           <div>
             {% if request.user.is_authenticated %}
-              <a href="{% url 'currencies:user_moreForexCurrencies' letter='A' user_id=request.user.uuid %}"
+              <a href="{% url 'currencies:user_moreForexCurrencies' letter='A' user_id=request.user.username %}"
                  class="see-more">More Forex</a>
             {% else %}
               <a href="{% url 'currencies:moreForexCurrencies' letter='A' %}"

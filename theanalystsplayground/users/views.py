@@ -53,7 +53,7 @@ user_redirect_view = UserRedirectView.as_view()
 @login_required
 def delete_user_view(request):
     if request.method == "POST":
-        user = User.objects.filter(uuid=request.user.uuid)
+        user = User.objects.filter(username=request.user.username)
         user_name = user.first().username
         user.first().delete()
         messages.success(
