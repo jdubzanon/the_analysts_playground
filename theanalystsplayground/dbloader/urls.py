@@ -10,4 +10,9 @@ urlpatterns = [
     path("load_stocks/", views.dbloader_stocks_view, name="dbloader_stocks_view"),
     path("load_index/", views.dbloader_index_view, name="dbloader_index_view"),
     path("load_crypto/", views.dbloader_crypto_view, name="dbloader_crypto_view"),
+    path(
+        "load_stocks_data/",
+        views.dbloader_stocksdata_view,
+        name="dbloader_stocksdata_view",
+    ),
 ]

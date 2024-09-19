@@ -5,9 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 
+from theanalystsplayground.Search.models import StocksData
 from theanalystsplayground.Search.models import StockSearch
 
 # Create your views here.
+
+# THIS ENTIRE APP IS TO LOAD THE DATABASE IN PRODUCTION
 
 
 def is_staff(user):
@@ -18,6 +21,28 @@ def is_staff(user):
 @user_passes_test(is_staff)
 def dbloader_view(request):
     return render(request, "dbloader/load_db.html", {})
+
+
+def dbloader_stocksdata_view(request):
+    parent_path = Path(__file__).resolve(strict=True).parent
+    db_path = parent_path / "combined.db"
+    con = sqlite3.connect(db_path)
+    cur = con.cursor()
+    data = cur.execute("SELECT * FROM stocksData").fetchall()
+    pre_check = StocksData.objects.all()
+    if not pre_check.exists():
+        for ticker, company_name, cik_str, sector, industry, market_cap in data:
+            obj, created = StocksData.objects.get_or_create(
+                ticker=ticker,
+                defaults={
+                    "company_name": company_name,
+                    "cik_str": cik_str,
+                    "sector": sector,
+                    "industry": industry,
+                    "market_cap": market_cap,
+                },
+            )
+    return render(request, "dbloader/stocks_data_finished.html", {})
 
 
 @login_required
