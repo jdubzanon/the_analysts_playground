@@ -36,7 +36,7 @@ pytest-django==4.9.0  # https://github.com/pytest-dev/pytest-django
 
 
 #ADDED PACKAGES
-numpy==1.26.4
+numpy==2.2.0
 pandas==2.2.2
 requests==2.31.0
 yfinance==0.2.38
